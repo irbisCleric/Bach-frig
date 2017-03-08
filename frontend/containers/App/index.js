@@ -6,6 +6,8 @@ class App extends Component {
     render() {
         return (
             <div>UA</div>
-        )
+        );
     }
 }
+
+export default App;

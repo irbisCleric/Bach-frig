@@ -4,11 +4,11 @@ import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 import React from 'react';
 
-// import App from "./containers/App";
+import App from "./containers/App";
 
 const element = <h1>UA</h1>;
 
 ReactDOM.render(
-    element,
+    <App />,
     document.getElementById("root")
 );

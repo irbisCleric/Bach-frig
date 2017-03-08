@@ -56,8 +56,9 @@ module.exports = {
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
-            name: "vendor",   
-            filename: "vendor.bundle.js"
+            name: "vendor",
+            // filename: "vendor.bundle.js",
+            minChunks: Infinity
         }),
         new webpack.DefinePlugin(
             {
