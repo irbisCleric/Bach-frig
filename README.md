@@ -5,7 +5,12 @@ $ yarn install
 
 ### Requirements
 
-### Create build
+#### Start web server
+$ npm run start
+
+Then open http://localhost:1815/
+
+#### Create build
 $ webpack --config webpack.config.js
 
 Yarn 0.21.3 [Download Yarn](https://yarnpkg.com/en/docs/install)

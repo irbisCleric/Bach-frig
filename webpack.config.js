@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const rucksack = require('rucksack-css');
 
 const FOLDERS = {
         sourceFE: "./frontend",
@@ -51,6 +52,33 @@ module.exports = {
                 options: {
                     name: "[name].[ext]"
                 }
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    {
+                        loader: "style-loader"
+                    },
+                    {
+                        loader: "css-loader",
+                        options: {
+                            modules: true,
+                            sourceMap: true,
+                            importLoaders: 1,
+                            localIdentName: "[local]___[hash:base64:5]"
+                        }
+                    },
+                    {
+                        loader: "postcss-loader",
+                        options: {
+                            postcss: [
+                                rucksack({
+                                    autoprefixer: true
+                                })
+                            ]
+                        }
+                    }
+                ]
             }
         ]
     },
