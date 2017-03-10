@@ -1,0 +1,16 @@
+{
+    "frige_food": [
+        {
+            "title": "Meat",
+            "amount": 2
+        },
+        {
+            "title": "Chicken",
+            "amount": 3
+        },
+        {
+            "title": "Tomato",
+            "amount": 1
+        }
+    ]
+}

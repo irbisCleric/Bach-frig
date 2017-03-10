@@ -6,7 +6,8 @@ $ yarn install
 ### Requirements
 
 #### Start web server
-$ npm run start
+$ npm run start (start client side)
+$ npm run server (start api server side)
 
 Then open http://localhost:1815/
 
