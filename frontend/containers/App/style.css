@@ -1,0 +1,15 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.MainContainer {
+    display: inline-flex;
+}
+
+.RightColumn {
+    flex: 0 0 auto;
+}
+
+.LeftColumn { }

@@ -71,7 +71,7 @@ module.exports = {
                     {
                         loader: "postcss-loader",
                         options: {
-                            postcss: [
+                            plugins: () => [
                                 rucksack({
                                     autoprefixer: true
                                 })

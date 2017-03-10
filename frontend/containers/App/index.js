@@ -8,6 +8,8 @@ import ActionAndroid from 'material-ui/svg-icons/action/android';
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
+import style from './style.css';
+
 class Frig extends Component {
     render() {
         const foodsList = [
@@ -23,7 +25,7 @@ class Frig extends Component {
                     <TableRowColumn>{food.amount}</TableRowColumn>
                 </TableRow>
             )
-        })
+        });
 
         const FoodInFrig = () => (
             <Table>
@@ -56,21 +58,21 @@ class CheckFrig extends Component {
                 icon={<ActionAndroid />}
             />
         );
-        
     }
 }
 
 class App extends Component {
     render() {
-        // return (
-        //     <MuiThemeProvider>
-        //         <CheckFrig/>
-        //         <Frig/>
-        //     </MuiThemeProvider>
-        // );
         return (
             <MuiThemeProvider>
-                <Frig/>
+            <div className={style.MainContainer}>
+                <div className={style.RightColumn}>
+                    <CheckFrig/>
+                </div>
+                <div className={style.LeftColumn}>
+                    <Frig/>
+                </div>
+            </div>
             </MuiThemeProvider>
         );
     }
