@@ -10,6 +10,21 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 
 class Frig extends Component {
     render() {
+        const foodsList = [
+            {title: 'Meat', amount: 2},
+            {title: 'Chicken', amount: 3},
+            {title: 'Tomato', amount: 1},
+        ];
+
+        const tBody = foodsList.map(food => {
+            return (
+                <TableRow key={food.title}>
+                    <TableRowColumn>{food.title}</TableRowColumn>
+                    <TableRowColumn>{food.amount}</TableRowColumn>
+                </TableRow>
+            )
+        })
+
         const FoodInFrig = () => (
             <Table>
                 <TableHeader>
@@ -19,18 +34,7 @@ class Frig extends Component {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    <TableRow>
-                        <TableRowColumn>Meat</TableRowColumn>
-                        <TableRowColumn>2</TableRowColumn>
-                    </TableRow>
-                    <TableRow>
-                        <TableRowColumn>Chicken</TableRowColumn>
-                        <TableRowColumn>3</TableRowColumn>
-                    </TableRow>
-                    <TableRow>
-                        <TableRowColumn>Tomato</TableRowColumn>
-                        <TableRowColumn>1</TableRowColumn>
-                    </TableRow>
+                    { tBody }
                 </TableBody>
             </Table>
         );
