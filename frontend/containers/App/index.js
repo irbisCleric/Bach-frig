@@ -1,48 +1,48 @@
 import React, { Component } from "react";
-import { bindActionCreators } from "redux"
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RaisedButton from 'material-ui/RaisedButton';
-import ActionAndroid from 'material-ui/svg-icons/action/android';
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import RaisedButton from "material-ui/RaisedButton";
+import ActionAndroid from "material-ui/svg-icons/action/android";
 
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from "material-ui/Table";
 
-import style from './style.css';
+import style from "./style.css";
 
 class Frig extends Component {
     render() {
         const foodsList = [
-            {title: 'Meat', amount: 2},
-            {title: 'Chicken', amount: 3},
-            {title: 'Tomato', amount: 1},
+            { title: "Meat", amount: 2 },
+            { title: "Chicken", amount: 3 },
+            { title: "Tomato", amount: 1 },
         ];
 
         const tBody = foodsList.map(food => {
             return (
-                <TableRow key={food.title}>
-                    <TableRowColumn>{food.title}</TableRowColumn>
-                    <TableRowColumn>{food.amount}</TableRowColumn>
-                </TableRow>
-            )
+              <TableRow key={food.title}>
+                <TableRowColumn>{food.title}</TableRowColumn>
+                <TableRowColumn>{food.amount}</TableRowColumn>
+              </TableRow>
+            );
         });
 
         const FoodInFrig = () => (
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHeaderColumn>Food</TableHeaderColumn>
-                        <TableHeaderColumn>Amount</TableHeaderColumn>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    { tBody }
-                </TableBody>
-            </Table>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHeaderColumn>Food</TableHeaderColumn>
+                <TableHeaderColumn>Amount</TableHeaderColumn>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              { tBody }
+            </TableBody>
+          </Table>
         );
 
         return (
-            <FoodInFrig/>
+          <FoodInFrig/>
         );
     }
 }
@@ -50,13 +50,14 @@ class Frig extends Component {
 class CheckFrig extends Component {
     render() {
         const btnText = "Check frig";
+        const btnIsPrimary = true;
 
         return (
-            <RaisedButton
-                label={btnText}
-                primary={true}
-                icon={<ActionAndroid />}
-            />
+          <RaisedButton
+            label={btnText}
+            primary={btnIsPrimary}
+            icon={<ActionAndroid />}
+          />
         );
     }
 }
@@ -64,16 +65,16 @@ class CheckFrig extends Component {
 class App extends Component {
     render() {
         return (
-            <MuiThemeProvider>
+          <MuiThemeProvider>
             <div className={style.MainContainer}>
-                <div className={style.RightColumn}>
-                    <CheckFrig/>
-                </div>
-                <div className={style.LeftColumn}>
-                    <Frig/>
-                </div>
+              <div className={style.RightColumn}>
+                <CheckFrig />
+              </div>
+              <div className={style.LeftColumn}>
+                <Frig />
+              </div>
             </div>
-            </MuiThemeProvider>
+          </MuiThemeProvider>
         );
     }
 }

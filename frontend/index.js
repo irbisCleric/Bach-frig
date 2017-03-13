@@ -11,7 +11,4 @@ import App from "./containers/App";
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
-ReactDOM.render(
-    <App />,
-    document.getElementById("root")
-);
+ReactDOM.render(<App />, document.getElementById("root"));
