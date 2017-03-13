@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
+// import { bindActionCreators } from "redux";
+// import { connect } from "react-redux";
 
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import RaisedButton from "material-ui/RaisedButton";
@@ -18,14 +18,13 @@ class Frig extends Component {
             { title: "Tomato", amount: 1 },
         ];
 
-        const tBody = foodsList.map(food => {
-            return (
-              <TableRow key={food.title}>
-                <TableRowColumn>{food.title}</TableRowColumn>
-                <TableRowColumn>{food.amount}</TableRowColumn>
-              </TableRow>
-            );
-        });
+        const tBody = foodsList.map(food => (
+          <TableRow key={food.title}>
+            <TableRowColumn>{food.title}</TableRowColumn>
+            <TableRowColumn>{food.amount}</TableRowColumn>
+          </TableRow>
+          ),
+        );
 
         const FoodInFrig = () => (
           <Table>
@@ -42,7 +41,7 @@ class Frig extends Component {
         );
 
         return (
-          <FoodInFrig/>
+          <FoodInFrig />
         );
     }
 }

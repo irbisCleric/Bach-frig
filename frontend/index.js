@@ -1,6 +1,6 @@
-import { Router, Route, browserHistory } from "react-router";
-import { syncHistoryWithStore } from "react-router-redux";
-import { Provider } from "react-redux";
+// import { Router, Route, browserHistory } from "react-router";
+// import { syncHistoryWithStore } from "react-router-redux";
+// import { Provider } from "react-redux";
 import ReactDOM from "react-dom";
 import React from "react";
 import injectTapEventPlugin from "react-tap-event-plugin";
