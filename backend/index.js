@@ -1,24 +1,24 @@
 const Koa = require("koa");
 const KoaJson = require("koa-json");
-const KoaRouter = require("koa-router")();
-const KoaBody = require("koa-body")();
-
-const backendApp = new Koa();
+const KoaRouter = require("koa-route");
+const KoaCompress = require("koa-compress");
 
 const frigeData = require("./data/frige.json");
+const backendApp = new Koa();
 
 backendApp.use(KoaJson());
 
-// KoaRouter.post("/frige/foods", KoaBody,  function *(next) {
-//     console.log(this.request.body);
-//     // => POST body
-//     this.body = frigeData;
-// });
+backendApp
+    .use(KoaRouter.get("/foods", (ctx) => {
+        ctx.body = frigeData;
+    }))
+    .use((ctx) => {
+        ctx.body = "Default route";
+    });
 
-// backendApp.use(KoaRouter.routes());
+backendApp
+    .use(KoaCompress());
 
-backendApp.use((ctx) => {
-    ctx.body = frigeData;
-});
+backendApp.listen(8181);
 
-backendApp.listen(8888);
+console.log("Server is running!");

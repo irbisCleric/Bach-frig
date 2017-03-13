@@ -42,3 +42,6 @@ build/
 
 # Yarn files
 yarn.lock
+
+# Visual Studio code local config
+.vscode/
