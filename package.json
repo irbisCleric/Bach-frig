@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server -d --history-api-fallback --hot --inline --progress --colors --port 1815",
-    "build": "NODE_ENV=production webpack --progress --colors",
+    "build": "webpack --progress --colors --config webpack.config.js",
     "server": "node backend/index.js"
   },
   "dependencies": {
@@ -39,10 +39,11 @@
     "webpack": "~2.2.1"
   },
   "devDependencies": {
-    "eslint": "^3.17.1",
-    "eslint-config-airbnb": "^14.1.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.10.0"
+    "eslint": "~3.17.1",
+    "eslint-config-airbnb": "~14.1.0",
+    "eslint-loader": "~1.6.3",
+    "eslint-plugin-import": "~2.2.0",
+    "eslint-plugin-jsx-a11y": "~4.0.0",
+    "eslint-plugin-react": "~6.10.0"
   }
 }
