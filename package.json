@@ -37,5 +37,12 @@
     "rucksack-css": "~0.9.1",
     "style-loader": "~0.13.2",
     "webpack": "~2.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.17.1",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0"
   }
 }
