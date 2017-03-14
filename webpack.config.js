@@ -1,10 +1,10 @@
-const path = require('path');
-const webpack = require('webpack');
-const rucksack = require('rucksack-css');
+const path = require("path");
+const webpack = require("webpack");
+const rucksack = require("rucksack-css");
 
 const FOLDERS = {
-        sourceFE: "./frontend",
-        buildFE: "./dist"
+    sourceFE: "./frontend",
+    buildFE: "./dist",
 };
 
 module.exports = {
@@ -18,13 +18,13 @@ module.exports = {
             "react-redux",
             "react-router",
             "react-router-redux",
-            "redux"
-        ]
+            "redux",
+        ],
     },
 
     output: {
         path: path.resolve(__dirname, FOLDERS.buildFE),
-        filename: "[name]FE.bundle.js"
+        filename: "[name]FE.bundle.js",
     },
 
     module: {
@@ -33,34 +33,34 @@ module.exports = {
                 test: /\.(js|jsx)$/,
                 use: [
                     {
-                        loader: "react-hot-loader"
+                        loader: "react-hot-loader",
                     },
                     {
-                        loader: "babel-loader"
+                        loader: "babel-loader",
                     },
                     {
-                        loader: "eslint-loader"
-                    }
+                        loader: "eslint-loader",
+                    },
                 ],
                 include: [
-                    path.resolve(__dirname, "frontend")
+                    path.resolve(__dirname, "frontend"),
                 ],
                 exclude: [
-                    path.resolve(__dirname, "/node_modules/")
-                ]
+                    path.resolve(__dirname, "/node_modules/"),
+                ],
             },
             {
                 test: /\.html$/,
                 loader: "file-loader",
                 options: {
-                    name: "[name].[ext]"
-                }
+                    name: "[name].[ext]",
+                },
             },
             {
                 test: /\.css$/,
                 use: [
                     {
-                        loader: "style-loader"
+                        loader: "style-loader",
                     },
                     {
                         loader: "css-loader",
@@ -68,42 +68,40 @@ module.exports = {
                             modules: true,
                             sourceMap: true,
                             importLoaders: 1,
-                            localIdentName: "[local]___[hash:base64:5]"
-                        }
+                            localIdentName: "[local]___[hash:base64:5]",
+                        },
                     },
                     {
                         loader: "postcss-loader",
                         options: {
                             plugins: () => [
                                 rucksack({
-                                    autoprefixer: true
-                                })
-                            ]
-                        }
-                    }
-                ]
-            }
-        ]
+                                    autoprefixer: true,
+                                }),
+                            ],
+                        },
+                    },
+                ],
+            },
+        ],
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
             name: "vendor",
             // filename: "vendor.bundle.js",
-            minChunks: Infinity
+            minChunks: Infinity,
         }),
-        new webpack.DefinePlugin(
-            {
-                "process.env": { NODE_ENV: JSON.stringify(process.env.NODE_ENV || "development") }
-            }
-        )
-  ],
-  devServer: {
-    //   proxy: { // proxy URLs to backend development server
-    //       '/api': 'http://localhost:3000'
-    //   },
-      contentBase: path.join(__dirname, FOLDERS.sourceFE),
-      hot: true,
-      https: false,
-      historyApiFallback: true
-  }
-}
+        new webpack.DefinePlugin({
+            "process.env": { NODE_ENV: JSON.stringify(process.env.NODE_ENV || "development") },
+        }),
+    ],
+    devServer: {
+        //   proxy: { // proxy URLs to backend development server
+        //       '/api': 'http://localhost:3000'
+        //   },
+        contentBase: path.join(__dirname, FOLDERS.sourceFE),
+        hot: true,
+        https: false,
+        historyApiFallback: true,
+    },
+};
