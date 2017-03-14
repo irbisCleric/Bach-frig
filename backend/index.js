@@ -2,9 +2,11 @@ const Koa = require("koa");
 const KoaJson = require("koa-json");
 const KoaRouter = require("koa-route");
 const KoaCompress = require("koa-compress");
+const cors = require('koa-cors');
 
 const frigeData = require("./data/frige.json");
 const backendApp = new Koa();
+backendApp.use(cors());
 
 backendApp.use(KoaJson());
 

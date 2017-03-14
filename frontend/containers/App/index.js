@@ -7,38 +7,9 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import RaisedButton from "material-ui/RaisedButton";
 import ActionAndroid from "material-ui/svg-icons/action/android";
 
-import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from "material-ui/Table";
-
 import style from "./style.css";
 
-function Frig() {
-    const foodsList = [
-        { title: "Meat", amount: 2 },
-        { title: "Chicken", amount: 3 },
-        { title: "Tomato", amount: 1 },
-    ];
-
-    const tBody = foodsList.map(food => (
-      <TableRow key={food.title}>
-        <TableRowColumn>{food.title}</TableRowColumn>
-        <TableRowColumn>{food.amount}</TableRowColumn>
-      </TableRow>
-      ),
-    );
-
-    return (
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHeaderColumn>Food</TableHeaderColumn>
-            <TableHeaderColumn>Amount</TableHeaderColumn>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          { tBody }
-        </TableBody>
-      </Table>);
-}
+import FrigContainer from "./../Frig/Frig.container";
 
 function CheckFrig() {
     const btnText = "Check frig";
@@ -61,7 +32,7 @@ function App() {
             <CheckFrig />
           </div>
           <div className={style.LeftColumn}>
-            <Frig />
+            <FrigContainer />
           </div>
         </div>
       </MuiThemeProvider>
