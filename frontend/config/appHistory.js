@@ -6,8 +6,8 @@
 // const appHistory = browserHistory;
 
 // Use hash history if you cannot configure server side
-import { useRouterHistory } from 'react-router';
-import { createHashHistory } from 'history';
+import { useRouterHistory } from "react-router";
+import { createHashHistory } from "history";
 
 const appHistory = useRouterHistory(createHashHistory)({ });
 
