@@ -1,15 +1,7 @@
-const DEFAULT_STATE = {
-    isLoading: false,
-    frigItems: [],
-};
+import constants from "./../constants/action.types";
 
-export default (state = DEFAULT_STATE, action) => {
-    switch (action.type) {
-    case "FETCH_FRIG_ITEMS":
-        return someFunc(state, action);
-    default:
-        return state;
-    }
+const DEFAULT_STATE = {
+    frigItems: [],
 };
 
 const someFunc = (state, action) => {
@@ -19,4 +11,13 @@ const someFunc = (state, action) => {
         ...state,
         frigItems: [...frigItems],
     };
+};
+
+export default (state = DEFAULT_STATE, action) => {
+    switch (action.type) {
+    case constants.FETCH_FRIG_ITEMS:
+        return someFunc(state, action);
+    default:
+        return state;
+    }
 };

@@ -1,4 +1,5 @@
 import axios from "axios";
+import constants from "./../constants/action.types";
 
 function success(type, payload) {
     return (dispatch) => {
@@ -10,11 +11,11 @@ function success(type, payload) {
     };
 }
 
-export const getFrigItems = (params) => (dispatch) => {
+export const getFrigItems = () => (dispatch) => {
     const url = "http://localhost:8181/foods";
     axios.get(url)
         .then((response) => {
-            dispatch(success("FETCH_FRIG_ITEMS", response));
+            dispatch(success(constants.FETCH_FRIG_ITEMS, response));
         });
 };
 

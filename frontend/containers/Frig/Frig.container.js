@@ -1,11 +1,9 @@
 import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getFrigItems } from "../../actions/frig.actions";
-// import apiActions from '../../actions/api.actions';
-// import pTypes from '../../actions/types/pokeball.types';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from "material-ui/Table";
 
+import { getFrigItems } from "../../actions/frig.actions";
 
 class FrigContainer extends Component {
 
@@ -14,7 +12,6 @@ class FrigContainer extends Component {
     }
 
     componentWillUnmount() {
-        this.props.handleClearDataState();
     }
 
     render() {
@@ -42,8 +39,7 @@ class FrigContainer extends Component {
 }
 
 FrigContainer.propTypes = {
-    handleGetFrigItems: PropTypes.func,
-    frigItems: PropTypes.func,
+    frigItems: PropTypes.any,
 };
 
 const mapStateToProps = state => ({
