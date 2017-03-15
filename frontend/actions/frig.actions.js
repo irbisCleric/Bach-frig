@@ -1,21 +1,24 @@
 import axios from "axios";
 import constants from "./../constants/action.types";
+import appConstants from "./../constants/app.constants";
+import apiActions from "./api.actions";
 
-function success(type, payload) {
-    return (dispatch) => {
-        const action = payload
-            ? { type, payload }
-            : { type };
+import Api from "../api/ApiClient";
+import ep from "../constants/endPoints.constant";
 
-        dispatch(action);
-    };
-}
+const test = new Api({ baseURL: appConstants.API_URL });
 
 export const getFrigItems = () => (dispatch) => {
-    const url = "http://localhost:8181/foods";
-    axios.get(url)
+    test.get(ep.frig.getFrigItems())
         .then((response) => {
-            dispatch(success(constants.FETCH_FRIG_ITEMS, response));
+            dispatch(apiActions.success(constants.FETCH_FRIG_ITEMS, response));
+        });
+};
+
+export const addFrigItem = () => (dispatch) => {
+    axios.get(constants.API_URL)
+        .then((response) => {
+            dispatch(apiActions.success(appConstants.FETCH_FRIG_ITEMS, response));
         });
 };
 

@@ -5,7 +5,7 @@ const DEFAULT_STATE = {
 };
 
 const someFunc = (state, action) => {
-    const frigItems = action.payload.data.frige_food;
+    const frigItems = action.payload.frige_food;
 
     return {
         ...state,
