@@ -5,11 +5,18 @@ const DEFAULT_STATE = {
 };
 
 const someFunc = (state, action) => {
-    const frigItems = action.payload.frige_food;
+    const frigItems = action.payload;
+    const res = [];
+
+    for (const i in frigItems) {
+        if ( frigItems.hasOwnProperty(i) && i == +i) {
+            res.push(frigItems[i]);
+        }
+    }
 
     return {
         ...state,
-        frigItems: [...frigItems],
+        frigItems: [...res],
     };
 };
 
