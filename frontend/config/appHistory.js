@@ -6,6 +6,10 @@
 // const appHistory = browserHistory;
 
 // Use hash history if you cannot configure server side
+
+// IMPORTANT history.getCurrentLocation was removed in history v4.0.0-2.
+// Try downgrading to history : "^3.0.0" since you are using react-router v3.
+
 import { useRouterHistory } from "react-router";
 import { createHashHistory } from "history";
 

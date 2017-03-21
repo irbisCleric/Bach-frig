@@ -8,11 +8,11 @@ const someFunc = (state, action) => {
     const frigItems = action.payload;
     const res = [];
 
-    for (const i in frigItems) {
-        if ( frigItems.hasOwnProperty(i) && i == +i) {
+    Object.keys(frigItems).forEach((key, i) => {
+        if (Object.prototype.hasOwnProperty.call(frigItems, i) && i === +i) {
             res.push(frigItems[i]);
         }
-    }
+    });
 
     return {
         ...state,
