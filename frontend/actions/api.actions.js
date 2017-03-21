@@ -38,6 +38,4 @@ export default {
             dispatch(action);
         };
     },
-
-
 };
