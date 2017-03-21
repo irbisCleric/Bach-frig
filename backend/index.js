@@ -4,7 +4,7 @@ const KoaRouter = require("koa-route");
 const KoaCompress = require("koa-compress");
 const cors = require('koa-cors');
 
-const frigeData = require("./data/frige.json");
+// const frigeData = require("./data/frige.json");
 const backendApp = new Koa();
 const firebase = require("firebase");
 
