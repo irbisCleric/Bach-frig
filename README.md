@@ -1,37 +1,29 @@
-## Welcome to GitHub Pages
+## Welcome to readme file
 
-You can use the [editor on GitHub](https://github.com/irbisCleric/Bach-frig/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+### Installation
+$ yarn install
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Requirements
 
-### Markdown
+#### Start web server
+$ npm run start (start client side)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+$ npm run server (start api server side)
 
-```markdown
-Syntax highlighted code block
+Then open http://localhost:1815/
 
-# Header 1
-## Header 2
-### Header 3
+For getting data from server please use http://localhost:8181/
 
-- Bulleted
-- List
+#### Create build
+$ npm run build
 
-1. Numbered
-2. List
+Yarn 0.21.3 [Download Yarn](https://yarnpkg.com/en/docs/install)
 
-**Bold** and _Italic_ and `Code` text
+### Global dependencies
+$ npm install -g yarn
 
-[Link](url) and ![Image](src)
-```
+$ npm install -g webpack
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+$ npm install -g webpack-dev-server
 
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/irbisCleric/Bach-frig/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Client structure was taken from https://github.com/tj/frontend-boilerplate/
