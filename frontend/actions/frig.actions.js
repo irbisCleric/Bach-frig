@@ -8,12 +8,11 @@ import ep from "../constants/endPoints.constant";
 // TODO maybe move to separate file
 const apiFactory = new Api({ baseURL: appConstants.API_URL });
 
-export const getFrigItems = () => (dispatch) => {
+const getFrigItems = () => (dispatch) => {
     apiFactory.get(ep.frig.getFrigItems())
         .then((response) => {
             dispatch(apiActions.success(constants.FETCH_FRIG_ITEMS, response));
         });
 };
 
-
-
+export default getFrigItems;

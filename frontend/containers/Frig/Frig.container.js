@@ -39,7 +39,13 @@ class FrigContainer extends Component {
 }
 
 FrigContainer.propTypes = {
-    frigItems: PropTypes.array,
+    frigItems: PropTypes.arrayOf(
+        PropTypes.shape({
+            title: PropTypes.string,
+            amount: PropTypes.number,
+        }),
+    ).isRequired,
+    handleGetFrigItems: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
