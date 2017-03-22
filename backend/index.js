@@ -2,15 +2,15 @@ const Koa = require("koa");
 const KoaJson = require("koa-json");
 const KoaRouter = require("koa-route");
 const KoaCompress = require("koa-compress");
-const cors = require('koa-cors');
+const cors = require("koa-cors");
+const logger = require("koa-logger");
 
-// const frigeData = require("./data/frige.json");
 const backendApp = new Koa();
 const firebase = require("firebase");
 
 backendApp.use(cors());
-
 backendApp.use(KoaJson());
+backendApp.use(logger());
 
 const config = {
     apiKey: "AIzaSyA5_f4QPSvk8B2893CEbxvcszRroADH0bc",
@@ -22,18 +22,25 @@ const config = {
 
 firebase.initializeApp(config);
 
-backendApp
-    .use(KoaRouter.get("/foods", (ctx) => {
-        return firebase.database().ref("/frig").once("value")
-            .then(snapshot => (ctx.body = snapshot.val()));
-    }))
-    .use((ctx) => {
-        ctx.body = "Default route";
-    });
+// Middleware normally takes two parameters (ctx, next),
+// ctx is the context for one request,
+// next is a function that is invoked to execute the downstream middleware.
+// It returns a Promise with a then function for running code after completion.
 
-backendApp
-    .use(KoaCompress());
+backendApp.use(KoaRouter.get("/foods", (ctx) => {
+    const reqContext = ctx;
 
-backendApp.listen(8181);
+    return firebase.database().ref("/frig").once("value")
+        .then(snapshot => (reqContext.body = snapshot.val()));
+}));
 
-console.log("Server is running!");
+backendApp.use((ctx) => {
+    const reqContext = ctx;
+    reqContext.body = "Default route";
+});
+
+backendApp.use(KoaCompress());
+
+const SERVER_PORT = process.env.PORT || 8181;
+backendApp.listen(SERVER_PORT);
+console.log(`Server is running! Listening on port :${SERVER_PORT}`);
