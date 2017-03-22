@@ -2,15 +2,11 @@ const Koa = require("koa");
 const KoaJson = require("koa-json");
 const KoaRouter = require("koa-route");
 const KoaCompress = require("koa-compress");
-const cors = require("koa-cors");
+const cors = require("kcors");
 const logger = require("koa-logger");
 
 const backendApp = new Koa();
 const firebase = require("firebase");
-
-backendApp.use(cors());
-backendApp.use(KoaJson());
-backendApp.use(logger());
 
 const config = {
     apiKey: "AIzaSyA5_f4QPSvk8B2893CEbxvcszRroADH0bc",
@@ -21,6 +17,11 @@ const config = {
 };
 
 firebase.initializeApp(config);
+
+backendApp.use(cors());
+backendApp.use(KoaJson());
+backendApp.use(logger());
+backendApp.use(KoaCompress());
 
 // Middleware normally takes two parameters (ctx, next),
 // ctx is the context for one request,
@@ -38,8 +39,6 @@ backendApp.use((ctx) => {
     const reqContext = ctx;
     reqContext.body = "Default route";
 });
-
-backendApp.use(KoaCompress());
 
 const SERVER_PORT = process.env.PORT || 8181;
 backendApp.listen(SERVER_PORT);
