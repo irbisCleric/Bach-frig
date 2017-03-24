@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from "material-ui/Table";
 
-import * as getFrigItems from "../../actions/frig.actions";
+import getFrigItems from "../../actions/frig.actions";
 
 class FrigContainer extends Component {
 
