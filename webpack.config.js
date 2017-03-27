@@ -103,5 +103,6 @@ module.exports = {
         hot: true,
         https: false,
         historyApiFallback: true,
+        watchContentBase: true,
     },
 };
