@@ -7,10 +7,8 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server -d --history-api-fallback --hot --inline --progress --colors --port 1815",
-    "buildFEDebug": "webpack --progress --colors --watch --config webpack.frontend.config.js",
+    "buildFEDebug": "webpack --progress --colors --watch --config webpack.config.js",
     "buildFE": "webpack --progress --colors --config webpack.frontend.config.js",
-    "buildBEDebug": "webpack --progress --colors --watch --config webpack.backend.config.js",
-    "buildBE": "webpack --progress --colors --config webpack.backend.config.js",
     "server": "node backend/index.js"
   },
   "dependencies": {
