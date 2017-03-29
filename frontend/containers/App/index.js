@@ -6,6 +6,7 @@ import React from "react";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import RaisedButton from "material-ui/RaisedButton";
 import ActionAndroid from "material-ui/svg-icons/action/android";
+import CircularProgress from "material-ui/CircularProgress";
 
 import style from "./style.css";
 
@@ -32,6 +33,7 @@ function App() {
             <CheckFrig />
           </div>
           <div className={style.LeftColumn}>
+            <CircularProgress />
             <FrigContainer />
           </div>
         </div>
