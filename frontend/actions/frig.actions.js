@@ -9,9 +9,23 @@ import ep from "../constants/endPoints.constant";
 const apiFactory = new Api({ baseURL: appConstants.API_URL });
 
 const getFrigItems = () => (dispatch) => {
+    dispatch({
+        type: constants.LOAD_STATUS_FRIG_ITEMS,
+        payload: {
+            isLoading: true,
+        },
+    });
+
     apiFactory.get(ep.frig.getFrigItems())
         .then((response) => {
             dispatch(apiActions.success(constants.FETCH_FRIG_ITEMS, response));
+
+            dispatch({
+                type: constants.LOAD_STATUS_FRIG_ITEMS,
+                payload: {
+                    isLoading: false,
+                },
+            });
         });
 };
 
