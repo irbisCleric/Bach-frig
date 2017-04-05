@@ -5,7 +5,7 @@ const DEFAULT_STATE = {
     isLoading: false,
 };
 
-const someFunc = (state, action) => {
+const frigItemsReducer = (state, action) => {
     const frigItems = action.payload;
     const res = [];
 
@@ -29,7 +29,7 @@ const loaderStatus = (state, action) => ({
 export default (state = DEFAULT_STATE, action) => {
     switch (action.type) {
     case constants.FETCH_FRIG_ITEMS:
-        return someFunc(state, action);
+        return frigItemsReducer(state, action);
     case constants.LOAD_STATUS_FRIG_ITEMS:
         return loaderStatus(state, action);
     default:
