@@ -4,7 +4,10 @@ import { bindActionCreators } from "redux";
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from "material-ui/Table";
 import CircularProgress from "material-ui/CircularProgress";
 
+import MenuContainer from "./../Menu/Menu.container";
+
 import getFrigItems from "../../actions/frig.actions";
+import style from "./Frig.css";
 
 class FrigContainer extends Component {
 
@@ -25,17 +28,21 @@ class FrigContainer extends Component {
         );
 
         if (!isLoading) {
-            return (<Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHeaderColumn>Food</TableHeaderColumn>
-                  <TableHeaderColumn>Amount</TableHeaderColumn>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                { tBody }
-              </TableBody>
-            </Table>);
+            return (
+              <div className={style.FrigContainer}>
+                <MenuContainer />
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHeaderColumn>Food</TableHeaderColumn>
+                      <TableHeaderColumn>Amount</TableHeaderColumn>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    { tBody }
+                  </TableBody>
+                </Table>
+              </div>);
         }
 
         return <CircularProgress />;
