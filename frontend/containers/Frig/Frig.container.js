@@ -4,7 +4,8 @@ import { bindActionCreators } from "redux";
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from "material-ui/Table";
 import CircularProgress from "material-ui/CircularProgress";
 
-import MenuContainer from "./../Menu/Menu.container";
+import NavMenu from "./../Menu/NavMenu.container";
+import ActionMenu from "./../Menu/ActionMenu.container";
 
 import getFrigItems from "../../actions/frig.actions";
 import style from "./Frig.css";
@@ -30,7 +31,8 @@ class FrigContainer extends Component {
         if (!isLoading) {
             return (
               <div className={style.FrigContainer}>
-                <MenuContainer />
+                <NavMenu />
+                <ActionMenu />
                 <Table>
                   <TableHeader>
                     <TableRow>
