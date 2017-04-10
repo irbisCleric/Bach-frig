@@ -1,18 +1,21 @@
-import React from "react";
-// import React, { Component } from "react";
-// import { bindActionCreators } from "redux";
-// import { connect } from "react-redux";
+import React, { PropTypes } from "react";
 
-// TODO move navigation here
 function App(props) {
     return (
-      <div>   
+      <div>
         <header>
           <nav>I am navigation.</nav>
-        </header>      
+        </header>
         {props.children}
-      </div> 
+      </div>
     );
 }
+
+App.propTypes = {
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(React.PropTypes.node),
+        PropTypes.node,
+    ]).isRequired,
+};
 
 export default App;
