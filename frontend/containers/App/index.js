@@ -3,21 +3,15 @@ import React from "react";
 // import { bindActionCreators } from "redux";
 // import { connect } from "react-redux";
 
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-
-import style from "./App.css";
-
-import FrigContainer from "./../Frig/Frig.container";
-
-function App() {
+// TODO move navigation here
+function App(props) {
     return (
-      <MuiThemeProvider>
-        <div className={style.MainContainer}>
-          <div className={style.LeftColumn}>
-            <FrigContainer />
-          </div>
-        </div>
-      </MuiThemeProvider>
+      <div>   
+        <header>
+          <nav>I am navigation.</nav>
+        </header>      
+        {props.children}
+      </div> 
     );
 }
 
