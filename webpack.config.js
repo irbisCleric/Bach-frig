@@ -1,6 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const rucksack = require("rucksack-css");
+// const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 const FOLDERS = {
     sourceFE: "./frontend",
@@ -71,7 +72,7 @@ module.exports = {
                         options: {
                             modules: true,
                             sourceMap: true,
-                            importLoaders: 1,
+                            importLoaders: true,
                             localIdentName: "[local]___[hash:base64:5]",
                         },
                     },
@@ -98,6 +99,7 @@ module.exports = {
         new webpack.DefinePlugin({
             "process.env": { NODE_ENV: JSON.stringify(process.env.NODE_ENV || "development") },
         }),
+        // new BundleAnalyzerPlugin(),
     ],
     devServer: {
         //   proxy: { // proxy URLs to backend development server
