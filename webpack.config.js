@@ -40,6 +40,10 @@ module.exports = {
                     },
                     {
                         loader: "eslint-loader",
+                        options: {
+                            failOnWarning: false,
+                            failOnError: true,
+                        },
                     },
                 ],
                 include: [

@@ -4,12 +4,14 @@
 {
   "extends": "airbnb",
    "rules": {
-     "linebreak-style": 0,
+     "linebreak-style": ["error", "unix"],
      "quotes": ["error", "double"],
      "semi": "error",
      "indent": ["error", 4],
      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-     "no-console": 0
+     "no-var": "error",
+     "no-console": "warn",
+     "no-debugger": "warn"
    },
    "env": {
      "browser": true,
