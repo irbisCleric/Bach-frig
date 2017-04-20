@@ -1,26 +1,39 @@
-import { Router } from "react-router";
-// import { syncHistoryWithStore } from "react-router-redux";
-import { Provider } from "react-redux";
-import ReactDOM from "react-dom";
 import React from "react";
-import injectTapEventPlugin from "react-tap-event-plugin";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
 
-import routes from "./config/appRoutes";
 import configureStore from "./store/root.store";
-import appHistory from "./config/appHistory";
-
-// Needed for onTouchTap for Material Design
-// http://stackoverflow.com/a/34015469/988941
-injectTapEventPlugin();
 
 const initialState = {};
 const store = configureStore(initialState);
 
+import App from "./containers/App/index";
+import FrigContainer from "./containers/Frig/Frig.container";
+import FormAddingMeal from "./containers/FormAddingMeal";
+
+const Home = (props) => {
+  console.log(props)
+  return <h1>Home</h1>
+}
+
+const NotFound = () => (
+  <h1>404.. This page is not found!</h1>);
+
+const Appp = (props) => (
+  <Router>
+    <App>
+      <Route exact path="/" component={FrigContainer} />
+      <Route exact path="/home" component={Home} />
+      <Route exact path="/add_meal" component={FormAddingMeal} />
+      <Route exact path="/404" component={NotFound} />
+    </App>
+  </Router>
+);
+
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={appHistory} >
-      {routes}
-    </Router>
+    <Appp />
   </Provider>,
   document.getElementById("root"),
 );

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from "material-ui/Table";
 import CircularProgress from "material-ui/CircularProgress";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
 import NavMenu from "./../Menu/NavMenu.container";
 import ActionMenu from "./../Menu/ActionMenu.container";
@@ -31,23 +32,27 @@ class FrigContainer extends Component {
         if (!isLoading) {
             return (
               <div className={style.FrigContainer}>
-                <NavMenu />
-                <ActionMenu />
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHeaderColumn>Food</TableHeaderColumn>
-                      <TableHeaderColumn>Amount</TableHeaderColumn>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    { tBody }
-                  </TableBody>
-                </Table>
+                <MuiThemeProvider>
+                    <Table>
+                    <TableHeader>
+                        <TableRow>
+                        <TableHeaderColumn>Food</TableHeaderColumn>
+                        <TableHeaderColumn>Amount</TableHeaderColumn>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        { tBody }
+                    </TableBody>
+                    </Table>
+                </MuiThemeProvider>
               </div>);
         }
 
-        return <CircularProgress />;
+        return (
+            <MuiThemeProvider>
+                <CircularProgress />
+            </MuiThemeProvider>
+        );
     }
 }
 

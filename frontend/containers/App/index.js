@@ -1,10 +1,14 @@
 import React, { PropTypes } from "react";
+import NavMenu from "../Menu/NavMenu.container";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
 function App(props) {
     return (
       <div>
         <header>
-          <nav>I am navigation.</nav>
+          <MuiThemeProvider>
+            <NavMenu />
+          </MuiThemeProvider>
         </header>
         {props.children}
       </div>

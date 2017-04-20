@@ -8,7 +8,7 @@ class NavMenu extends Component {
     render() {
         function Homepage() {
             const btnText = "Homepage";
-            const url = "#/app";
+            const url = "/home";
 
             return (
               <RaisedButton
@@ -20,7 +20,7 @@ class NavMenu extends Component {
 
         function AddNewMeal() {
             const btnText = "Add new meal";
-            const url = "#/add_meal";
+            const url = "/add_meal";
 
             return (
               <RaisedButton
