@@ -4,7 +4,7 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 function FormAddingMeal() {
     return (
       <MuiThemeProvider>
-        <div>YO</div>
+        <div>Form will be here</div>
       </MuiThemeProvider>
     );
 }

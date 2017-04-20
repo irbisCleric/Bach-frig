@@ -5,9 +5,6 @@ import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowCol
 import CircularProgress from "material-ui/CircularProgress";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
-import NavMenu from "./../Menu/NavMenu.container";
-import ActionMenu from "./../Menu/ActionMenu.container";
-
 import getFrigItems from "../../actions/frig.actions";
 import style from "./Frig.css";
 
@@ -33,25 +30,25 @@ class FrigContainer extends Component {
             return (
               <div className={style.FrigContainer}>
                 <MuiThemeProvider>
-                    <Table>
+                  <Table>
                     <TableHeader>
-                        <TableRow>
+                      <TableRow>
                         <TableHeaderColumn>Food</TableHeaderColumn>
                         <TableHeaderColumn>Amount</TableHeaderColumn>
-                        </TableRow>
+                      </TableRow>
                     </TableHeader>
                     <TableBody>
-                        { tBody }
+                      { tBody }
                     </TableBody>
-                    </Table>
+                  </Table>
                 </MuiThemeProvider>
               </div>);
         }
 
         return (
-            <MuiThemeProvider>
-                <CircularProgress />
-            </MuiThemeProvider>
+          <MuiThemeProvider>
+            <CircularProgress />
+          </MuiThemeProvider>
         );
     }
 }

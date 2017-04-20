@@ -5,22 +5,22 @@ import { Provider } from "react-redux";
 
 import configureStore from "./store/root.store";
 
-const initialState = {};
-const store = configureStore(initialState);
-
 import App from "./containers/App/index";
 import FrigContainer from "./containers/Frig/Frig.container";
 import FormAddingMeal from "./containers/FormAddingMeal";
 
+const initialState = {};
+const store = configureStore(initialState);
+
 const Home = (props) => {
-  console.log(props)
-  return <h1>Home</h1>
-}
+    console.log(props);
+    return <h1>Home</h1>;
+};
 
 const NotFound = () => (
   <h1>404.. This page is not found!</h1>);
 
-const Appp = (props) => (
+const Appp = () => (
   <Router>
     <App>
       <Route exact path="/" component={FrigContainer} />

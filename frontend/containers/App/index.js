@@ -1,6 +1,6 @@
 import React, { PropTypes } from "react";
-import NavMenu from "../Menu/NavMenu.container";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import NavMenu from "../Menu/NavMenu.container";
 
 function App(props) {
     return (
