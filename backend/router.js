@@ -4,6 +4,10 @@ const firebase = require("./firebase");
 const frigeMethods = {
     log: snapshot => console.log("There are currently in a frige: \n", snapshot.val()),
     connectToFoodList: () => firebase.database().ref("/frig").once("value", this.logFoodList),
+    addFoodItem: item => firebase.database().ref("/frig").set({
+        amount: 10,
+        titile: item,
+    }),
 };
 
 module.exports = (backendApp) => {
@@ -19,6 +23,15 @@ module.exports = (backendApp) => {
         const reqContext = ctx;
         return frigeMethods.connectToFoodList()
             .then(snapshot => (reqContext.body = snapshot.val()));
+    }));
+
+    /**
+     * Post new food item
+     */
+    backendApp.use(KoaRouter.post("/foods", (ctx, next) => {
+        console.log(JSON.stringify(ctx))
+        return frigeMethods.addFoodItem('post')
+            .then(() => (ctx));
     }));
 
     backendApp.use((ctx) => {

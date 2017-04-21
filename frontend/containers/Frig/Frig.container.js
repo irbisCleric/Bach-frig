@@ -5,7 +5,7 @@ import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowCol
 import CircularProgress from "material-ui/CircularProgress";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
-import getFrigItems from "../../actions/frig.actions";
+import { getFrigItems } from "../../actions/frig.actions";
 import style from "./Frig.css";
 
 class FrigContainer extends Component {

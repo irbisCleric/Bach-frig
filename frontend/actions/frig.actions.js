@@ -8,7 +8,7 @@ import ep from "../constants/endPoints.constant";
 // TODO maybe move to separate file
 const apiFactory = new Api({ baseURL: appConstants.API_URL });
 
-const getFrigItems = () => (dispatch) => {
+export const getFrigItems = () => (dispatch) => {
     dispatch({
         type: constants.LOAD_STATUS_FRIG_ITEMS,
         payload: {
@@ -29,4 +29,23 @@ const getFrigItems = () => (dispatch) => {
         });
 };
 
-export default getFrigItems;
+export const setFrigItem = item => (dispatch) => {
+    dispatch({
+        type: constants.LOAD_STATUS_FRIG_ITEMS,
+        payload: {
+            isLoading: true,
+        },
+    });
+
+    apiFactory.post(ep.frig.setFrigItem(), item)
+        .then((response) => {
+            dispatch(apiActions.success(constants.SET_FRIG_ITEM, response));
+
+            dispatch({
+                type: constants.LOAD_STATUS_FRIG_ITEMS,
+                payload: {
+                    isLoading: false,
+                },
+            });
+        });
+};
