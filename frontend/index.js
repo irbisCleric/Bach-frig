@@ -1,16 +1,22 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
+import injectTapEventPlugin from "react-tap-event-plugin";
 
 import configureStore from "./store/root.store";
 
 import App from "./containers/App/index";
-import FrigContainer from "./containers/Frig/Frig.container";
+import FridgeContainer from "./containers/Fridge/Fridge.container";
 import FormAddingMeal from "./containers/FormAddingMeal";
 
 const initialState = {};
 const store = configureStore(initialState);
+
+// (Don't remove this please. It fixes warning bug from Material Design)
+// Needed for onTouchTap for Material Design
+// http://stackoverflow.com/a/34015469/988941
+injectTapEventPlugin();
 
 const Home = (props) => {
     console.log(props);
@@ -21,14 +27,14 @@ const NotFound = () => (
   <h1>404.. This page is not found!</h1>);
 
 const Appp = () => (
-  <Router>
+  <BrowserRouter>
     <App>
-      <Route exact path="/" component={FrigContainer} />
       <Route exact path="/home" component={Home} />
       <Route exact path="/add_meal" component={FormAddingMeal} />
+      <Route exact path="/fridge_food" component={FridgeContainer} />
       <Route exact path="/404" component={NotFound} />
     </App>
-  </Router>
+  </BrowserRouter>
 );
 
 ReactDOM.render(

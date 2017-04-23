@@ -2,8 +2,11 @@ import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import Paper from "material-ui/Paper";
+import RaisedButton from "material-ui/RaisedButton";
+import TextField from "material-ui/TextField";
 
-import { setFrigItem } from "../../actions/frig.actions";
+import { setFridgeItem } from "../../actions/fridge.actions";
 
 class FormAddingMeal extends Component {
     constructor() {
@@ -13,34 +16,59 @@ class FormAddingMeal extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log('submimt');
-        this.props.handleSetFrigItem('new item');
+        console.log("submit");
+        this.props.handlesetFridgeItem("new item");
     }
 
     render() {
+        const stylePaper = {
+            height: 250,
+            marginTop: 20,
+            padding: 20,
+            display: "inline-block",
+        };
+        const submitBtnPrimary = true;
+
         return (
           <MuiThemeProvider>
-            <form onSubmit={this.handleSubmit}>
-              <h3>Add meal</h3>
-              <div>
+            <form>
+              <Paper style={stylePaper} zDepth={3}>
                 <label htmlFor="name">
-                  <div>Please enter name of the product</div>
-                  <input type="text" name="name" />
-                </label>
-              </div>
+                  <TextField
+                    hintText="Enter the meal name"
+                    name="name"
+                  />
+                </label><br />
+                <label htmlFor="amount">
+                  <TextField
+                    hintText="How many items have you bought?"
+                    name="amount"
+                  />
+                </label><br /><br />
+                <RaisedButton
+                  label="Submit"
+                  primary={submitBtnPrimary}
+                  onTouchTap={this.handleSubmit}
+                />
+              </Paper>
             </form>
           </MuiThemeProvider>
         );
     }
 }
 
+
+FormAddingMeal.propTypes = {
+    handlesetFridgeItem: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = (state) => {
-    const { frigItems, isLoading } = state.main;
-    return { frigItems, isLoading };
+    const { fridgeItems, isLoading } = state.main;
+    return { fridgeItems, isLoading };
 };
 
 const mapDispatchToProps = dispatch => ({
-    handleSetFrigItem: bindActionCreators(setFrigItem, dispatch),
+    handlesetFridgeItem: bindActionCreators(setFridgeItem, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormAddingMeal);

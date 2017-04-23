@@ -2,11 +2,11 @@ const KoaRouter = require("koa-route");
 const firebase = require("./firebase");
 
 const frigeMethods = {
-    log: snapshot => console.log("There are currently in a frige: \n", snapshot.val()),
-    connectToFoodList: () => firebase.database().ref("/frig").once("value", this.logFoodList),
-    addFoodItem: item => firebase.database().ref("/frig").set({
-        amount: 10,
-        titile: item,
+    log: snapshot => console.log("There are currently in a fridge: \n", snapshot.val()),
+    connectToFoodList: () => firebase.database().ref("/fridge_food").once("value", this.logFoodList),
+    addFoodItem: item => firebase.database().ref("/fridge_food").set({
+        amount: 1,
+        title: item,
     }),
 };
 
@@ -29,8 +29,8 @@ module.exports = (backendApp) => {
      * Post new food item
      */
     backendApp.use(KoaRouter.post("/foods", (ctx, next) => {
-        console.log(JSON.stringify(ctx))
-        return frigeMethods.addFoodItem('post')
+        console.log(JSON.stringify(ctx));
+        return frigeMethods.addFoodItem("post")
             .then(() => (ctx));
     }));
 

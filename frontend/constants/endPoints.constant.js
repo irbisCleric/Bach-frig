@@ -1,6 +1,6 @@
 export default {
-    frig: {
-        getFrigItems: () => "/foods",
-        setFrigItem: () => "/foods",
+    fridge: {
+        getFridgeItems: () => "/foods",
+        setFridgeItem: () => "/foods",
     },
 };

@@ -1,39 +1,36 @@
 import React, { Component } from "react";
 import RaisedButton from "material-ui/RaisedButton";
+import { Link } from "react-router-dom";
 
 class NavMenu extends Component {
     componentWillUnmount() {
     }
 
     render() {
-        function Homepage() {
-            const btnText = "Homepage";
-            const url = "/home";
+        const MenuList = [
+            {
+                btnText: "Homepage",
+                url: "/home",
+            },
+            {
+                btnText: "Add new meal",
+                url: "/add_meal",
+            },
+            {
+                btnText: "Show fridge",
+                url: "/fridge_food",
+            },
+        ];
 
-            return (
-              <RaisedButton
-                href={url}
-                label={btnText}
-              />
-            );
-        }
-
-        function AddNewMeal() {
-            const btnText = "Add new meal";
-            const url = "/add_meal";
-
-            return (
-              <RaisedButton
-                href={url}
-                label={btnText}
-              />
-            );
-        }
+        const MenuListDom = MenuList.map(item => (
+          <Link to={item.url} key={item.btnText}>
+            <RaisedButton label={item.btnText} />
+          </Link>
+        ));
 
         return (
           <div>
-            <Homepage />
-            <AddNewMeal />
+            { MenuListDom }
           </div>
         );
     }

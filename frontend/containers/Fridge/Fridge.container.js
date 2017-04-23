@@ -5,21 +5,21 @@ import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowCol
 import CircularProgress from "material-ui/CircularProgress";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
-import { getFrigItems } from "../../actions/frig.actions";
-import style from "./Frig.css";
+import { getFridgeItems } from "../../actions/fridge.actions";
+import style from "./Fridge.css";
 
-class FrigContainer extends Component {
+class FridgeContainer extends Component {
 
     componentDidMount() {
-        this.props.handleGetFrigItems({ limit: 10 });
+        this.props.handlegetFridgeItems({ limit: 10 });
     }
 
     componentWillUnmount() {
     }
 
     render() {
-        const { frigItems, isLoading } = this.props;
-        const tBody = frigItems.map(food => (
+        const { fridgeItems, isLoading } = this.props;
+        const tBody = fridgeItems.map(food => (
           <TableRow key={food.title}>
             <TableRowColumn>{food.title}</TableRowColumn>
             <TableRowColumn>{food.amount}</TableRowColumn>
@@ -28,7 +28,7 @@ class FrigContainer extends Component {
 
         if (!isLoading) {
             return (
-              <div className={style.FrigContainer}>
+              <div className={style.FridgeContainer}>
                 <MuiThemeProvider>
                   <Table>
                     <TableHeader>
@@ -53,24 +53,24 @@ class FrigContainer extends Component {
     }
 }
 
-FrigContainer.propTypes = {
-    frigItems: PropTypes.arrayOf(
+FridgeContainer.propTypes = {
+    fridgeItems: PropTypes.arrayOf(
         PropTypes.shape({
             title: PropTypes.string,
             amount: PropTypes.number,
         }),
     ).isRequired,
     isLoading: PropTypes.bool.isRequired,
-    handleGetFrigItems: PropTypes.func.isRequired,
+    handlegetFridgeItems: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
-    const { frigItems, isLoading } = state.main;
-    return { frigItems, isLoading };
+    const { fridgeItems, isLoading } = state.main;
+    return { fridgeItems, isLoading };
 };
 
 const mapDispatchToProps = dispatch => ({
-    handleGetFrigItems: bindActionCreators(getFrigItems, dispatch),
+    handlegetFridgeItems: bindActionCreators(getFridgeItems, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(FrigContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(FridgeContainer);
