@@ -14,7 +14,6 @@
   "dependencies": {
     "axios": "~0.15.3",
     "firebase": "^3.8.0",
-    "firebase-nodejs": "^1.0.1-1.1",
     "history": "~3.0.0",
     "kcors": "^1.3.2",
     "koa": "~2.0.1",
@@ -54,6 +53,7 @@
     "react-hot-loader": "^1.3.1",
     "rucksack-css": "^0.9.1",
     "style-loader": "^0.16.1",
+    "webpack": "^2.4.1",
     "webpack-bundle-analyzer": "^2.4.0"
   }
 }
