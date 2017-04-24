@@ -35,7 +35,6 @@ module.exports = (backendApp) => {
      * Post new food item
      */
     backendApp.use(KoaRouter.post("/foods", (ctx, next) => {
-        console.log(JSON.stringify(ctx, null, 2));
         return frigeMethods.addFoodItem("apple")
             .then(() => (ctx));
     }));
@@ -45,39 +44,8 @@ module.exports = (backendApp) => {
         reqContext.body = "Default route";
     });
 
-    /**
-     * Add new food item
-     */
-    // backendApp.use(KoaRouter.post("/foods", (ctx) => {
-    //     const reqContext = ctx;
-    //     return frigeMethods.connectToFoodList()
-    //        .then(snapshot => (reqContext.body = snapshot.val()));
-    // }));
-
-    /**
-     * Get single food item
-     */
-    // backendApp.use(KoaRouter.get("/foods/:id", (ctx) => {
-    //     const reqContext = ctx;
-    //     return frigeMethods.connectToFoodList()
-    //          .then(snapshot => (reqContext.body = snapshot.val()));
-    // }));
-
-    /**
-     * Update single food item
-     */
-    // backendApp.use(KoaRouter.put("/foods/:id", (ctx) => {
-    //     const reqContext = ctx;
-    //     return frigeMethods.connectToFoodList()
-    //  .then(snapshot => (reqContext.body = snapshot.val()));
-    // }));
-
-    /**
-     * Remove single food item
-     */
-    // backendApp.use(KoaRouter.delete("/foods/:id", (ctx) => {
-    //     const reqContext = ctx;
-    //     return frigeMethods.connectToFoodList()
-    //  .then(snapshot => (reqContext.body = snapshot.val()));
-    // }));
+    // TODO: Add new food item
+    // TODO: Get single food item
+    // TODO: Update single food item
+    // TODO: Remove single food item
 };

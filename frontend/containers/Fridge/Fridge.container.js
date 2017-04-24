@@ -19,8 +19,9 @@ class FridgeContainer extends Component {
 
     render() {
         const { fridgeItems, isLoading } = this.props;
-        const tBody = fridgeItems.map(food => (
-          <TableRow key={food.title}>
+        const tBody = fridgeItems.map((food, index) => (
+          <TableRow key={Math.random()}>
+            <TableRowColumn>{index + 1}</TableRowColumn>
             <TableRowColumn>{food.title}</TableRowColumn>
             <TableRowColumn>{food.amount}</TableRowColumn>
           </TableRow>),
@@ -33,6 +34,7 @@ class FridgeContainer extends Component {
                   <Table>
                     <TableHeader>
                       <TableRow>
+                        <TableHeaderColumn>##</TableHeaderColumn>
                         <TableHeaderColumn>Food</TableHeaderColumn>
                         <TableHeaderColumn>Amount</TableHeaderColumn>
                       </TableRow>
@@ -57,7 +59,10 @@ FridgeContainer.propTypes = {
     fridgeItems: PropTypes.arrayOf(
         PropTypes.shape({
             title: PropTypes.string,
-            amount: PropTypes.number,
+            amount: PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.number,
+            ]),
         }),
     ).isRequired,
     isLoading: PropTypes.bool.isRequired,

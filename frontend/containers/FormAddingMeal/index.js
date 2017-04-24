@@ -28,6 +28,9 @@ class FormAddingMeal extends Component {
             display: "inline-block",
         };
         const submitBtnPrimary = true;
+        const errorText = {
+            required: "This field is required",
+        };
 
         return (
           <MuiThemeProvider>
@@ -37,12 +40,14 @@ class FormAddingMeal extends Component {
                   <TextField
                     hintText="Enter the meal name"
                     name="name"
+                    errorText={errorText.required}
                   />
                 </label><br />
                 <label htmlFor="amount">
                   <TextField
                     hintText="How many items have you bought?"
                     name="amount"
+                    errorText={errorText.required}
                   />
                 </label><br /><br />
                 <RaisedButton
