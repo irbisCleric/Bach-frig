@@ -4,6 +4,8 @@ import { bindActionCreators } from "redux";
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from "material-ui/Table";
 import CircularProgress from "material-ui/CircularProgress";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import RaisedButton from "material-ui/RaisedButton";
+import ActionDelete from "material-ui/svg-icons/action/delete";
 
 import { getFridgeItems } from "../../actions/fridge.actions";
 import style from "./Fridge.css";
@@ -19,11 +21,17 @@ class FridgeContainer extends Component {
 
     render() {
         const { fridgeItems, isLoading } = this.props;
+
         const tBody = fridgeItems.map((food, index) => (
           <TableRow key={Math.random()}>
             <TableRowColumn>{index + 1}</TableRowColumn>
             <TableRowColumn>{food.title}</TableRowColumn>
             <TableRowColumn>{food.amount}</TableRowColumn>
+            <TableRowColumn>
+              <RaisedButton
+                icon={<ActionDelete />}
+              />
+            </TableRowColumn>
           </TableRow>),
         );
 
@@ -37,6 +45,7 @@ class FridgeContainer extends Component {
                         <TableHeaderColumn>##</TableHeaderColumn>
                         <TableHeaderColumn>Food</TableHeaderColumn>
                         <TableHeaderColumn>Amount</TableHeaderColumn>
+                        <TableHeaderColumn>Control buttons</TableHeaderColumn>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
