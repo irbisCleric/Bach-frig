@@ -60,11 +60,18 @@ class FridgeContainer extends Component {
         }
 
         if (!isLoading) {
+            const tConf = {
+                rSel: false,
+                displayCheckbox: false,
+                dSelAll: false,
+                adj: false,
+            };
+
             return (
               <div className={style.FridgeContainer}>
                 <MuiThemeProvider>
-                  <Table>
-                    <TableHeader>
+                  <Table selectable={tConf.rSel}>
+                    <TableHeader displaySelectAll={tConf.dSelAll} adjustForCheckbox={tConf.adj}>
                       <TableRow>
                         <TableHeaderColumn>##</TableHeaderColumn>
                         <TableHeaderColumn>Food</TableHeaderColumn>
@@ -72,7 +79,7 @@ class FridgeContainer extends Component {
                         <TableHeaderColumn>Control buttons</TableHeaderColumn>
                       </TableRow>
                     </TableHeader>
-                    <TableBody>
+                    <TableBody displayRowCheckbox={tConf.displayCheckbox}>
                       { tBody }
                     </TableBody>
                   </Table>
