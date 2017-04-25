@@ -4,24 +4,43 @@ import { bindActionCreators } from "redux";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Paper from "material-ui/Paper";
 import RaisedButton from "material-ui/RaisedButton";
+import FlatButton from "material-ui/FlatButton";
 import TextField from "material-ui/TextField";
+import Dialog from "material-ui/Dialog";
+import { browserHistory } from 'react-router';
 
 import { setFridgeItem } from "../../actions/fridge.actions";
+
+const EMPTY_ITEM = { name: "", amount: "" };
 
 class FormAddingMeal extends Component {
     constructor() {
         super();
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleOpen = this.handleOpen.bind(this);
+        this.handleClose = this.handleClose.bind(this);
         this.state = {
-            item: { name: "", amount: "" },
+            open: false,
+            item: { ...EMPTY_ITEM },
         };
     }
 
     handleSubmit(e) {
         e.preventDefault();
         console.log("submit");
-        this.props.handlesetFridgeItem("new item");
+        this.props.handlesetFridgeItem(this.state.item);
+        this.setState({ item: { ...EMPTY_ITEM } });
+        this.handleOpen();
+    }
+
+    handleOpen() {
+        this.setState({ open: true });
+    }
+
+    handleClose() {
+        this.setState({ open: false });
+        this.props.history.push("/fridge_food");
     }
 
     handleChange({ target: { name, value } }) {
@@ -44,36 +63,60 @@ class FormAddingMeal extends Component {
         const errorText = {
             required: "This field is required",
         };
+        const actions = [
+            <FlatButton
+              label="Cancel"
+              primary={true}
+              onTouchTap={this.handleClose}
+            />,
+            <FlatButton
+              label="Submit"
+              primary={true}
+              keyboardFocused={true}
+              onTouchTap={this.handleClose}
+            />,
+        ];
 
         return (
           <MuiThemeProvider>
-            <form>
-              <Paper style={stylePaper} zDepth={3}>
-                <label htmlFor="name">
-                  <TextField
-                    placeholder="Enter the meal name"
-                    name="name"
-                    value={this.state.item.title}
-                    onChange={this.handleChange}
-                    errorText={this.state.item.name ? "" : errorText.required}
+            <div>
+              <form>
+                <Paper style={stylePaper} zDepth={3}>
+                  <label htmlFor="name">
+                    <TextField
+                      placeholder="Enter the meal name"
+                      name="name"
+                      value={this.state.item.title}
+                      onChange={this.handleChange}
+                      errorText={this.state.item.name ? "" : errorText.required}
+                    />
+                  </label><br />
+                  <label htmlFor="amount">
+                    <TextField
+                      hintText="How many items have you bought?"
+                      name="amount"
+                      onChange={this.handleChange}
+                      errorText={this.state.item.amount ? "" : errorText.required}
+                    />
+                  </label><br /><br />
+                  <RaisedButton
+                    disabled={!this.state.item.name || !this.state.item.amount}
+                    label="Submit"
+                    primary={submitBtnPrimary}
+                    onTouchTap={this.handleSubmit}
                   />
-                </label><br />
-                <label htmlFor="amount">
-                  <TextField
-                    hintText="How many items have you bought?"
-                    name="amount"
-                    onChange={this.handleChange}
-                    errorText={this.state.item.amount ? "" : errorText.required}
-                  />
-                </label><br /><br />
-                <RaisedButton
-                  disabled={!this.state.item.name || !this.state.item.amount}
-                  label="Submit"
-                  primary={submitBtnPrimary}
-                  onTouchTap={this.handleSubmit}
-                />
-              </Paper>
-            </form>
+                </Paper>
+              </form>
+              <Dialog
+                title="Dialog With Actions"
+                actions={actions}
+                modal={false}
+                open={this.state.open}
+                onRequestClose={this.handleClose}
+              >
+                The actions in this window were passed in as an array of React objects.
+              </Dialog>
+            </div>
           </MuiThemeProvider>
         );
     }

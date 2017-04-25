@@ -31,20 +31,33 @@ class FridgeContainer extends Component {
 
     render() {
         const { fridgeItems, isLoading } = this.props;
-        const tBody = fridgeItems.map((food, index) => (
-          <TableRow key={Math.random()}>
-            <TableRowColumn>{index + 1}</TableRowColumn>
-            <TableRowColumn>{food.title}</TableRowColumn>
-            <TableRowColumn>{food.amount}</TableRowColumn>
-            <TableRowColumn>
-              <RaisedButton
-                data-remove={food.name}
-                icon={<ActionDelete />}
-                onTouchTap={this.handleRemove}
-              />
-            </TableRowColumn>
-          </TableRow>),
-        );
+
+        let tBody;
+
+        if (fridgeItems.length) {
+            tBody = fridgeItems.map((food, index) => (
+              <TableRow key={food.id}>
+                <TableRowColumn>{index + 1}</TableRowColumn>
+                <TableRowColumn>{food.name}</TableRowColumn>
+                <TableRowColumn>{food.amount}</TableRowColumn>
+                <TableRowColumn>
+                  <RaisedButton
+                    data-remove={food.name}
+                    icon={<ActionDelete />}
+                    onTouchTap={this.handleRemove}
+                  />
+                </TableRowColumn>
+              </TableRow>),
+            );
+        } else {
+            tBody = (
+              <TableRow>
+                <TableRowColumn>
+                  No food  :(
+                </TableRowColumn>
+              </TableRow>
+             );
+        }
 
         if (!isLoading) {
             return (

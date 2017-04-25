@@ -9,10 +9,14 @@ const fridgeItemsReducer = (state, action) => {
     const fridgeItems = action.payload;
     const res = [];
 
+    if (!fridgeItems) {
+        return state;
+    }
+
     Object.keys(fridgeItems).forEach((key) => {
         if (Object.prototype.hasOwnProperty.call(fridgeItems, key)) {
             res.push(
-                Object.assign(fridgeItems[key], { name: key }),
+                Object.assign(fridgeItems[key], { id: key }),
             );
         }
     });

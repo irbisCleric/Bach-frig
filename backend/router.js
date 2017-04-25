@@ -7,11 +7,7 @@ const frigeMethods = {
     connectToFoodList: () => dbRef.once("value"),
     addFoodItem: (item) => {
         const ref = dbRef.push();
-
-        return ref.set({
-            amount: 1,
-            title: item,
-        });
+        return ref.set(item);
     },
     removeFoodItem: key => firebase.database().ref(`/fridge_food/${key}`),
     getFoodItem: key => firebase.database().ref(`/fridge_food/${key}`).once("value"),
@@ -73,7 +69,7 @@ module.exports = (backendApp) => {
      */
     backendApp.use(KoaRouter.post("/foods", (ctx, next) => {
         const reqContext = ctx;
-        frigeMethods.addFoodItem("Banana");
+        frigeMethods.addFoodItem(ctx.request.body);
 
         reqContext.res.statusCode = 200;
         reqContext.body = {
