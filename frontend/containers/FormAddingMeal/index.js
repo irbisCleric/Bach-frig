@@ -7,7 +7,7 @@ import RaisedButton from "material-ui/RaisedButton";
 import FlatButton from "material-ui/FlatButton";
 import TextField from "material-ui/TextField";
 import Dialog from "material-ui/Dialog";
-import { browserHistory } from 'react-router';
+// import { browserHistory } from "react-router";
 
 import { setFridgeItem } from "../../actions/fridge.actions";
 
@@ -60,19 +60,21 @@ class FormAddingMeal extends Component {
             display: "inline-block",
         };
         const submitBtnPrimary = true;
+        const flatButtonPrimary = true;
+        const flatButtonKeyboardFocused = true;
         const errorText = {
             required: "This field is required",
         };
         const actions = [
             <FlatButton
               label="Cancel"
-              primary={true}
+              primary={flatButtonPrimary}
               onTouchTap={this.handleClose}
             />,
             <FlatButton
               label="Submit"
-              primary={true}
-              keyboardFocused={true}
+              primary={flatButtonPrimary}
+              keyboardFocused={flatButtonKeyboardFocused}
               onTouchTap={this.handleClose}
             />,
         ];
@@ -125,6 +127,7 @@ class FormAddingMeal extends Component {
 
 FormAddingMeal.propTypes = {
     handlesetFridgeItem: PropTypes.func.isRequired,
+    history: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 const mapStateToProps = (state) => {

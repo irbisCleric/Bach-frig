@@ -11,7 +11,8 @@
      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
      "no-var": "error",
      "no-console": "warn",
-     "no-debugger": "warn"
+     "no-debugger": "warn",
+     "react/jsx-indent": 0
    },
    "env": {
      "browser": true,
