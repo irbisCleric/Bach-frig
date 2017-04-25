@@ -12,12 +12,25 @@ class FormAddingMeal extends Component {
     constructor() {
         super();
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.state = {
+            item: { name: "", amount: "" },
+        };
     }
 
     handleSubmit(e) {
         e.preventDefault();
         console.log("submit");
         this.props.handlesetFridgeItem("new item");
+    }
+
+    handleChange({ target: { name, value } }) {
+        this.setState({
+            item: {
+                ...this.state.item,
+                [name]: value,
+            },
+        });
     }
 
     render() {
@@ -38,19 +51,23 @@ class FormAddingMeal extends Component {
               <Paper style={stylePaper} zDepth={3}>
                 <label htmlFor="name">
                   <TextField
-                    hintText="Enter the meal name"
+                    placeholder="Enter the meal name"
                     name="name"
-                    errorText={errorText.required}
+                    value={this.state.item.title}
+                    onChange={this.handleChange}
+                    errorText={this.state.item.name ? "" : errorText.required}
                   />
                 </label><br />
                 <label htmlFor="amount">
                   <TextField
                     hintText="How many items have you bought?"
                     name="amount"
-                    errorText={errorText.required}
+                    onChange={this.handleChange}
+                    errorText={this.state.item.amount ? "" : errorText.required}
                   />
                 </label><br /><br />
                 <RaisedButton
+                  disabled={!this.state.item.name || !this.state.item.amount}
                   label="Submit"
                   primary={submitBtnPrimary}
                   onTouchTap={this.handleSubmit}
