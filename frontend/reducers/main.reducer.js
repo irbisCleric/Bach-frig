@@ -11,7 +11,9 @@ const fridgeItemsReducer = (state, action) => {
 
     Object.keys(fridgeItems).forEach((key) => {
         if (Object.prototype.hasOwnProperty.call(fridgeItems, key)) {
-            res.push(fridgeItems[key]);
+            res.push(
+                Object.assign(fridgeItems[key], { name: key }),
+            );
         }
     });
 
@@ -26,12 +28,18 @@ const loaderStatus = (state, action) => ({
     isLoading: action.payload.isLoading,
 });
 
+const removeItemReducer = state => ({
+    ...state,
+});
+
 export default (state = DEFAULT_STATE, action) => {
     switch (action.type) {
     case constants.FETCH_FRIDGE_ITEMS:
         return fridgeItemsReducer(state, action);
     case constants.LOAD_STATUS_FRIDGE_ITEMS:
         return loaderStatus(state, action);
+    case constants.DELETE_FRIDGE_ITEM:
+        return removeItemReducer(state);
     default:
         return state;
     }

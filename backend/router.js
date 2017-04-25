@@ -4,8 +4,7 @@ const firebase = require("./firebase");
 const dbRef = firebase.database().ref("/fridge_food");
 
 const frigeMethods = {
-    log: snapshot => console.log("There are currently in a fridge: \n", snapshot.val()),
-    connectToFoodList: () => dbRef.once("value", this.logFoodList),
+    connectToFoodList: () => dbRef.once("value"),
     addFoodItem: (item) => {
         const ref = dbRef.push();
 
@@ -14,6 +13,8 @@ const frigeMethods = {
             title: item,
         });
     },
+    removeFoodItem: key => firebase.database().ref(`/fridge_food/${key}`),
+    getFoodItem: key => firebase.database().ref(`/fridge_food/${key}`).once("value"),
 };
 
 module.exports = (backendApp) => {
@@ -32,11 +33,54 @@ module.exports = (backendApp) => {
     }));
 
     /**
+     * Get single food item
+     */
+    backendApp.use(KoaRouter.get("/foods/:id", (ctx, next) => {
+        const reqContext = ctx;
+        frigeMethods
+            .getFoodItem(next)
+            .then((snapshot) => {
+                console.log(snapshot.val());
+            });
+
+        reqContext.res.statusCode = 200;
+        reqContext.body = {
+            msg: "Single item loaded successful!",
+            status: reqContext.res.statusCode,
+        };
+        reqContext.type = "application/json; charset=utf-8";
+    }));
+
+    /**
+     * Remove single food item
+     */
+    backendApp.use(KoaRouter.del("/foods/:id", (ctx, next) => {
+        const reqContext = ctx;
+        frigeMethods
+            .removeFoodItem(next)
+            .remove();
+
+        reqContext.res.statusCode = 200;
+        reqContext.body = {
+            msg: "Item removed successful!",
+            status: reqContext.res.statusCode,
+        };
+        reqContext.type = "application/json; charset=utf-8";
+    }));
+
+    /**
      * Post new food item
      */
-    backendApp.use(KoaRouter.post("/foods", (ctx) => {
-        return frigeMethods.addFoodItem("apple")
-            .then(() => (ctx.body = { msg: "Successfully added" }));
+    backendApp.use(KoaRouter.post("/foods", (ctx, next) => {
+        const reqContext = ctx;
+        frigeMethods.addFoodItem("Banana");
+
+        reqContext.res.statusCode = 200;
+        reqContext.body = {
+            msg: "Successfully added",
+            status: reqContext.res.statusCode,
+        };
+        reqContext.type = "application/json; charset=utf-8";
     }));
 
     backendApp.use((ctx) => {
@@ -45,7 +89,5 @@ module.exports = (backendApp) => {
     });
 
     // TODO: Add new food item
-    // TODO: Get single food item
     // TODO: Update single food item
-    // TODO: Remove single food item
 };

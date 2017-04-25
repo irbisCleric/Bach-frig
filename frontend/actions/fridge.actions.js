@@ -49,3 +49,13 @@ export const setFridgeItem = item => (dispatch) => {
             });
         });
 };
+
+
+export const deleteSingleFridgeItem = snapshotName => (dispatch) => {
+    apiFactory.delete(ep.fridge.deleteSingleFridgeItem(snapshotName))
+        .then(() => {
+            dispatch({
+                type: constants.DELETE_FRIDGE_ITEM,
+            });
+        });
+};

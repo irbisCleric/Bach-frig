@@ -7,10 +7,14 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import RaisedButton from "material-ui/RaisedButton";
 import ActionDelete from "material-ui/svg-icons/action/delete";
 
-import { getFridgeItems } from "../../actions/fridge.actions";
+import { getFridgeItems, deleteSingleFridgeItem } from "../../actions/fridge.actions";
 import style from "./Fridge.css";
 
 class FridgeContainer extends Component {
+    constructor() {
+        super();
+        this.handleRemove = this.handleRemove.bind(this);
+    }
 
     componentDidMount() {
         this.props.handlegetFridgeItems({ limit: 10 });
@@ -19,9 +23,14 @@ class FridgeContainer extends Component {
     componentWillUnmount() {
     }
 
+    handleRemove(e) {
+        console.log("removed");
+        const keyProp = e.currentTarget.getAttribute("data-remove");
+        this.props.handleRemoveFridgeItem(keyProp);
+    }
+
     render() {
         const { fridgeItems, isLoading } = this.props;
-
         const tBody = fridgeItems.map((food, index) => (
           <TableRow key={Math.random()}>
             <TableRowColumn>{index + 1}</TableRowColumn>
@@ -29,7 +38,9 @@ class FridgeContainer extends Component {
             <TableRowColumn>{food.amount}</TableRowColumn>
             <TableRowColumn>
               <RaisedButton
+                data-remove={food.name}
                 icon={<ActionDelete />}
+                onTouchTap={this.handleRemove}
               />
             </TableRowColumn>
           </TableRow>),
@@ -72,10 +83,12 @@ FridgeContainer.propTypes = {
                 PropTypes.string,
                 PropTypes.number,
             ]),
+            name: PropTypes.string,
         }),
     ).isRequired,
     isLoading: PropTypes.bool.isRequired,
     handlegetFridgeItems: PropTypes.func.isRequired,
+    handleRemoveFridgeItem: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -85,6 +98,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => ({
     handlegetFridgeItems: bindActionCreators(getFridgeItems, dispatch),
+    handleRemoveFridgeItem: bindActionCreators(deleteSingleFridgeItem, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FridgeContainer);
