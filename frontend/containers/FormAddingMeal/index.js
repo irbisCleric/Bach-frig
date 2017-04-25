@@ -7,9 +7,9 @@ import RaisedButton from "material-ui/RaisedButton";
 import FlatButton from "material-ui/FlatButton";
 import TextField from "material-ui/TextField";
 import Dialog from "material-ui/Dialog";
-// import { browserHistory } from "react-router";
 
 import { setFridgeItem } from "../../actions/fridge.actions";
+import { APP_URLS } from "../../constants/app.constants";
 
 const EMPTY_ITEM = { name: "", amount: "" };
 
@@ -28,7 +28,6 @@ class FormAddingMeal extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log("submit");
         this.props.handlesetFridgeItem(this.state.item);
         this.setState({ item: { ...EMPTY_ITEM } });
         this.handleOpen();
@@ -40,7 +39,7 @@ class FormAddingMeal extends Component {
 
     handleClose() {
         this.setState({ open: false });
-        this.props.history.push("/fridge_food");
+        this.props.history.push(APP_URLS.FRIDGE_FOOD);
     }
 
     handleChange({ target: { name, value } }) {
