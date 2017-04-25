@@ -9,7 +9,7 @@ const frigeMethods = {
     addFoodItem: (item) => {
         const ref = dbRef.push();
 
-        ref.set({
+        return ref.set({
             amount: 1,
             title: item,
         });
@@ -34,9 +34,9 @@ module.exports = (backendApp) => {
     /**
      * Post new food item
      */
-    backendApp.use(KoaRouter.post("/foods", (ctx, next) => {
+    backendApp.use(KoaRouter.post("/foods", (ctx) => {
         return frigeMethods.addFoodItem("apple")
-            .then(() => (ctx));
+            .then(() => (ctx.body = { msg: "Successfully added" }));
     }));
 
     backendApp.use((ctx) => {
