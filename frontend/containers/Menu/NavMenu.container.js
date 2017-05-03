@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import RaisedButton from "material-ui/RaisedButton";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import styles from "./NavMenu.css";
 
 class NavMenu extends Component {
     componentWillUnmount() {
@@ -23,9 +24,9 @@ class NavMenu extends Component {
         ];
 
         const MenuListDom = MenuList.map(item => (
-          <Link to={item.url} key={item.btnText}>
+          <NavLink to={item.url} key={item.btnText} activeClassName={styles.active}>
             <RaisedButton label={item.btnText} />
-          </Link>
+          </NavLink>
         ));
 
         return (
