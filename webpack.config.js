@@ -10,6 +10,7 @@ const webpackConfig = {
     // context :  project.paths.client(),
     name    :  "client",
     target  :  "web",
+    devtool : project.compiler_devtool,
     resolve :  {
         modules  :  [
             project.paths.client(),

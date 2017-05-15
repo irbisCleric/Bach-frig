@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import RaisedButton from "material-ui/RaisedButton";
 import { NavLink } from "react-router-dom";
-import styles from "./NavMenu.css";
+import styles from "./Header.css";
 
 class NavMenu extends Component {
     componentWillUnmount() {
@@ -30,9 +30,9 @@ class NavMenu extends Component {
         ));
 
         return (
-          <div>
+          <nav>
             { MenuListDom }
-          </div>
+          </nav>
         );
     }
 }
