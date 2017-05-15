@@ -2,6 +2,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const rucksack = require("rucksack-css");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 // const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const project = require("./project.config");
 
@@ -22,12 +23,12 @@ const webpackConfig = {
 // ------------------------------------
 // Entry Points
 // ------------------------------------
-const APP_ENTRY = project.paths.client("index.js");
+const APP_ENTRY = project.paths.client("main.js");
 const APP_HTML = project.paths.client("index.html");
 
 webpackConfig.entry = {
     app     :  [APP_ENTRY],
-    html    :  APP_HTML,
+    // html    :  APP_HTML,
     vendor  :  project.compiler_vendors,
 };
 
@@ -74,13 +75,13 @@ webpackConfig.module.rules = [{
 // Template Loaders (rules)
 // ------------------------------------
 // HTML
-webpackConfig.module.rules.push({
-    test: /\.html$/,
-    loader: "file-loader",
-    options: {
-        name: "[name].[ext]",
-    },
-});
+// webpackConfig.module.rules.push({
+//     test: /\.html$/,
+//     loader: "file-loader",
+//     options: {
+//         name: "[name].[ext]",
+//     },
+// });
 
 // ------------------------------------
 // Style Loaders
@@ -126,6 +127,16 @@ webpackConfig.plugins = [
         name: "vendor",
         // filename: "vendor.bundle.js",
         minChunks: Infinity,
+    }),
+    new HtmlWebpackPlugin({
+        template : APP_HTML,
+        hash     : false,
+        // favicon  : project.paths.public('favicon.ico'),
+        filename : 'index.html',
+        inject   : 'body',
+        minify   : {
+        collapseWhitespace : true
+        }
     }),
     // new webpack.HotModuleReplacementPlugin(),
     // new BundleAnalyzerPlugin(),

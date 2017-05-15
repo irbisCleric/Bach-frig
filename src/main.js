@@ -19,10 +19,7 @@ const store = configureStore(initialState);
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
-const Home = (props) => {
-    console.log(props);
-    return <h1>Home</h1>;
-};
+const Home = () => (<h1>Home</h1>);
 
 const NotFound = () => (
   <h1>404.. This page is not found!</h1>);
