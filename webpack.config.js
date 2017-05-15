@@ -52,6 +52,7 @@ webpackConfig.module.rules = [{
         },
         {
             loader: "babel-loader",
+            options: project.compiler_babel,
         },
         {
             loader: "eslint-loader",

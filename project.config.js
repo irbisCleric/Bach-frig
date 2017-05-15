@@ -14,6 +14,11 @@ const config = {
     // ----------------------------------
     // Compiler Configuration
     // ----------------------------------
+    compiler_babel : {
+        cacheDirectory : true,
+        plugins        : ["transform-runtime"],
+        presets        : ["es2015", "react", "stage-0"]
+    },
     compiler_hash_type       :  "hash",
     compiler_public_path     :  "/",
     compiler_stats           :  {

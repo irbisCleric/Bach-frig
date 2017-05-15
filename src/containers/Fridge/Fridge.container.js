@@ -24,7 +24,6 @@ class FridgeContainer extends Component {
     }
 
     handleRemove(e) {
-        console.log("removed");
         const keyProp = e.currentTarget.getAttribute("data-remove");
         this.props.handleRemoveFridgeItem(keyProp);
     }
