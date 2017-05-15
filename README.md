@@ -15,9 +15,10 @@ Then open http://localhost:1815/
 For getting data from server please use http://localhost:8181/
 
 #### Create build
-$ npm run buildFE
 
-Yarn 0.21.3 [Download Yarn](https://yarnpkg.com/en/docs/install)
+$ npm run build
+
+[Download Yarn](https://yarnpkg.com/en/docs/install)
 
 ### Global dependencies
 $ npm install -g yarn
