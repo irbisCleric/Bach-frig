@@ -1,10 +1,10 @@
 import React, { PropTypes } from "react";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Header from "../../components/Header";
-import "./CoreLayout.css";
+import styles from "./CoreLayout.css";
 
 export const CoreLayout = ({ children }) => (
-    <div className="container text-center">
+    <div className={styles.container}>
         <MuiThemeProvider>
           <Header />
         </MuiThemeProvider>

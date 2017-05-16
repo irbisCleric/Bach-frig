@@ -1,6 +1,5 @@
-
 nav.header {
-  /* for redefine Material UI element style props */
+  /* for redefine Material UI element style props http://www.material-ui.com/#/customization/styles */
   .active button {
     background: steelblue !important;
   }
