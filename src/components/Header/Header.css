@@ -1,3 +1,11 @@
-.active span {
-  text-decoration: underline;
+
+nav.header {
+  /* for redefine Material UI element style props */
+  .active button {
+    background: steelblue !important;
+  }
+
+  .active span {
+    color: #fff !important;
+  }
 }

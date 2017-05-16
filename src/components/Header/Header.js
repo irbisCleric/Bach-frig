@@ -30,7 +30,7 @@ class NavMenu extends Component {
         ));
 
         return (
-          <nav>
+          <nav className={styles.header}>
             { MenuListDom }
           </nav>
         );
