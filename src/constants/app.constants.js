@@ -1,7 +1,8 @@
 export const APP_URLS = {
     ADD_MEAL: "/add_meal",
     FRIDGE_FOOD: "/fridge_food",
-    HOME: "/home",
+    DASHBOARD: "/dashboard",
+    KNOWN_FOOD: "/foods",
     ROOT: "/",
 };
 

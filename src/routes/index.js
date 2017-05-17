@@ -5,11 +5,12 @@ import { Provider } from "react-redux";
 import CoreLayout from "../layouts/CoreLayout";
 import FormAddingMeal from "../containers/FormAddingMeal";
 import Fridge from "../containers/Fridge";
+import KnownFood from "../containers/KnownFood";
 import { APP_URLS } from "../constants/app.constants";
 
 // TODO: Should be splitted on routings and AppContainer
 
-const Home = () => (<h1>Home</h1>);
+const Dashboard = () => (<h1>Wellcome to Bachelor fridge app!</h1>);
 const NotFound = () => (<h1>404.. This page is not found!</h1>);
 
 class AppContainer extends Component {
@@ -25,10 +26,11 @@ class AppContainer extends Component {
                 <Router>
                     <CoreLayout>
                     <Switch>
-                        <Redirect exact from={APP_URLS.ROOT} to={APP_URLS.FRIDGE_FOOD} />
-                        <Route path={APP_URLS.HOME} component={Home} />
+                        <Redirect exact from={APP_URLS.ROOT} to={APP_URLS.DASHBOARD} />
+                        <Route path={APP_URLS.DASHBOARD} component={Dashboard} />
                         <Route path={APP_URLS.ADD_MEAL} component={FormAddingMeal} />
                         <Route path={APP_URLS.FRIDGE_FOOD} component={Fridge} />
+                        <Route path={APP_URLS.KNOWN_FOOD} component={KnownFood} />
                         <Route component={NotFound} />
                     </Switch>
                     </CoreLayout>

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import RaisedButton from "material-ui/RaisedButton";
 import { NavLink } from "react-router-dom";
+
+import { APP_URLS } from "../../constants/app.constants";
 import styles from "./Header.css";
 
 class NavMenu extends Component {
@@ -10,16 +12,20 @@ class NavMenu extends Component {
     render() {
         const MenuList = [
             {
-                btnText: "Homepage",
-                url: "/home",
-            },
-            {
-                btnText: "Add new meal",
-                url: "/add_meal",
+                btnText: "Dashboard",
+                url: APP_URLS.DASHBOARD,
             },
             {
                 btnText: "Show fridge",
-                url: "/fridge_food",
+                url: APP_URLS.FRIDGE_FOOD,
+            },
+            {
+                btnText: "Add new meal",
+                url: APP_URLS.ADD_MEAL,
+            },
+            {
+                btnText: "Known food",
+                url: APP_URLS.KNOWN_FOOD,
             },
         ];
 
