@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import CoreLayout from "../layouts/CoreLayout";
 import FormAddingMeal from "../containers/FormAddingMeal";
 import Fridge from "../containers/Fridge";
-import KnownFood from "../containers/KnownFood";
+import KnownFoodRouter from "./KnownFoodRouter";
 import { APP_URLS } from "../constants/app.constants";
 
 // TODO: Should be splitted on routings and AppContainer
@@ -30,7 +30,7 @@ class AppContainer extends Component {
                         <Route path={APP_URLS.DASHBOARD} component={Dashboard} />
                         <Route path={APP_URLS.ADD_MEAL} component={FormAddingMeal} />
                         <Route path={APP_URLS.FRIDGE_FOOD} component={Fridge} />
-                        <Route path={APP_URLS.KNOWN_FOOD} component={KnownFood} />
+                        <Route path={APP_URLS.KNOWN_FOOD} component={KnownFoodRouter} />
                         <Route component={NotFound} />
                     </Switch>
                     </CoreLayout>

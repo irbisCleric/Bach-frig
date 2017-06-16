@@ -3,6 +3,7 @@ export const APP_URLS = {
     FRIDGE_FOOD: "/fridge_food",
     DASHBOARD: "/dashboard",
     KNOWN_FOOD: "/foods",
+    KNOWN_FOOD_ITEM: "/foods/:number",
     ROOT: "/",
 };
 
