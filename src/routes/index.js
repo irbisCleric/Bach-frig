@@ -15,11 +15,11 @@ const Dashboard = () => {
         paddingLeft: "1rem",
     };
 
-    const descText = "It can for compare your available products with possible recipes";
+    const descText = "It can for compare your available products with possible recipes.";
 
     return (
         <section>
-            <h1>Wellcome to Bachelor fridge</h1>
+            <h1>Welcome to Bachelor fridge</h1>
             <p style={textStyle}>This application created to help you with cooking process.</p>
             <p style={textStyle}>{descText}</p>
         </section>
