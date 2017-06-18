@@ -10,7 +10,21 @@ import { APP_URLS } from "../constants/app.constants";
 
 // TODO: Should be splitted on routings and AppContainer
 
-const Dashboard = () => (<h1>Wellcome to Bachelor fridge app!</h1>);
+const Dashboard = () => {
+    const textStyle = {
+        paddingLeft: "1rem",
+    };
+
+    const descText = "It can for compare your available products with possible recipes";
+
+    return (
+        <section>
+            <h1>Wellcome to Bachelor fridge</h1>
+            <p style={textStyle}>This application created to help you with cooking process.</p>
+            <p style={textStyle}>{descText}</p>
+        </section>
+    );
+};
 const NotFound = () => (<h1>404.. This page is not found!</h1>);
 
 class AppContainer extends Component {
