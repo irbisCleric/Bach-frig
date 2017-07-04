@@ -1,7 +1,7 @@
 const KoaRouter = require("koa-route");
 const firebase = require("./firebase");
 
-const dbRef = firebase.database().ref("/fridge_food");
+const dbRef = firebase.database().ref("fridge_food");
 
 const frigeMethods = {
     getProducts: () => dbRef.once("value"),
