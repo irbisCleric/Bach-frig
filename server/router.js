@@ -4,13 +4,13 @@ const firebase = require("./firebase");
 const dbRef = firebase.database().ref("/fridge_food");
 
 const frigeMethods = {
-    connectToFoodList: () => dbRef.once("value"),
-    addFoodItem: (item) => {
+    getProducts: () => dbRef.once("value"),
+    addProduct: (item) => {
         const ref = dbRef.push();
         return ref.set(item);
     },
-    removeFoodItem: key => firebase.database().ref(`/fridge_food/${key}`),
-    getFoodItem: key => firebase.database().ref(`/fridge_food/${key}`).once("value"),
+    removeProduct: key => firebase.database().ref(`/fridge_food/${key}`),
+    getProduct: key => firebase.database().ref(`/fridge_food/${key}`).once("value"),
 };
 
 module.exports = (backendApp) => {
@@ -20,21 +20,21 @@ module.exports = (backendApp) => {
     // It returns a Promise with a then function for running code after completion.
 
     /**
-     * Get full food list
+     * Get full products list
      */
-    backendApp.use(KoaRouter.get("/foods", (ctx) => {
+    backendApp.use(KoaRouter.get("/products", (ctx) => {
         const reqContext = ctx;
-        return frigeMethods.connectToFoodList()
+        return frigeMethods.getProducts()
             .then(snapshot => (reqContext.body = snapshot.val()));
     }));
 
     /**
-     * Get single food item
+     * Get single product item
      */
-    backendApp.use(KoaRouter.get("/foods/:id", (ctx, next) => {
+    backendApp.use(KoaRouter.get("/products/:id", (ctx, next) => {
         const reqContext = ctx;
         frigeMethods
-            .getFoodItem(next)
+            .getProduct(next)
             .then((snapshot) => {
                 console.log(snapshot.val());
             });
@@ -48,12 +48,12 @@ module.exports = (backendApp) => {
     }));
 
     /**
-     * Remove single food item
+     * Remove single product item
      */
-    backendApp.use(KoaRouter.del("/foods/:id", (ctx, next) => {
+    backendApp.use(KoaRouter.del("/products/:id", (ctx, next) => {
         const reqContext = ctx;
         frigeMethods
-            .removeFoodItem(next)
+            .removeProduct(next)
             .remove();
 
         reqContext.res.statusCode = 200;
@@ -65,11 +65,11 @@ module.exports = (backendApp) => {
     }));
 
     /**
-     * Post new food item
+     * Create new product item
      */
-    backendApp.use(KoaRouter.post("/foods", (ctx, next) => {
+    backendApp.use(KoaRouter.post("/products", (ctx, next) => {
         const reqContext = ctx;
-        frigeMethods.addFoodItem(ctx.request.body);
+        frigeMethods.addProduct(ctx.request.body);
 
         reqContext.res.statusCode = 200;
         reqContext.body = {
