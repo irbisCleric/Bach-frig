@@ -5,7 +5,12 @@ const dbRef = firebase.database().ref();
 const fridgeRef = dbRef.child("fridge_food");
 
 const frigeMethods = {
-    getProducts: () => fridgeRef.orderByChild("name").once("value"),
+    getProducts: () => fridgeRef.orderByChild("name").once("value").then((shot) => {
+        let sortedList = [];
+        shot.forEach(child => { sortedList.push(Object.assign({}, { key: child.getKey() }, child.val())); });
+
+        return sortedList;
+    }),
     addProduct: (item) => {
         const ref = dbRef.push();
         return ref.set(item);
@@ -25,7 +30,7 @@ module.exports = (backendApp) => {
      */
     backendApp.use(
         KoaRouter
-            .get("/products", ctx => frigeMethods.getProducts().then(list => (ctx.body = list.val())))
+            .get("/products", ctx => frigeMethods.getProducts().then(list => (ctx.body = list)))
     );
 
     /**
