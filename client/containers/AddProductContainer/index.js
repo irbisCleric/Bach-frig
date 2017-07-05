@@ -28,7 +28,7 @@ class AddProductContainer extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        this.props.handlesetProduct(this.state.item);
+        this.props.handleSetProduct(this.state.item);
         this.setState({ item: { ...EMPTY_ITEM } });
         this.handleOpen();
     }
@@ -125,7 +125,7 @@ class AddProductContainer extends Component {
 
 
 AddProductContainer.propTypes = {
-    handlesetProduct: PropTypes.func.isRequired,
+    handleSetProduct: PropTypes.func.isRequired,
     history: PropTypes.shape({
         action: PropTypes.string.isRequired,
         block: PropTypes.func.isRequired,
@@ -147,7 +147,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    handlesetProduct: bindActionCreators(setProduct, dispatch),
+    handleSetProduct: bindActionCreators(setProduct, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddProductContainer);

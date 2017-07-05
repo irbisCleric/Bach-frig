@@ -17,7 +17,7 @@ class ProductsContainer extends Component {
     }
 
     componentDidMount() {
-        this.props.handlegetFridgeItems({ limit: 10 });
+        this.props.handleGetProducts({ limit: 10 });
     }
 
     componentWillUnmount() {
@@ -25,7 +25,7 @@ class ProductsContainer extends Component {
 
     handleRemove(e) {
         const keyProp = e.currentTarget.getAttribute("data-remove");
-        this.props.handleRemoveFridgeItem(keyProp);
+        this.props.handleRemoveProduct(keyProp);
     }
 
     render() {
@@ -41,7 +41,7 @@ class ProductsContainer extends Component {
                 <TableRowColumn>{food.amount}</TableRowColumn>
                 <TableRowColumn>
                   <RaisedButton
-                    data-remove={food.name}
+                    data-remove={food.key}
                     icon={<ActionDelete />}
                     onTouchTap={this.handleRemove}
                   />
@@ -106,8 +106,8 @@ ProductsContainer.propTypes = {
         }),
     ).isRequired,
     isLoading: PropTypes.bool.isRequired,
-    handlegetFridgeItems: PropTypes.func.isRequired,
-    handleRemoveFridgeItem: PropTypes.func.isRequired,
+    handleGetProducts: PropTypes.func.isRequired,
+    handleRemoveProduct: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -116,8 +116,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    handlegetFridgeItems: bindActionCreators(getProducts, dispatch),
-    handleRemoveFridgeItem: bindActionCreators(deleteProduct, dispatch),
+    handleGetProducts: bindActionCreators(getProducts, dispatch),
+    handleRemoveProduct: bindActionCreators(deleteProduct, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductsContainer);

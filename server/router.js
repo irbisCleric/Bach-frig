@@ -7,15 +7,14 @@ const fridgeRef = dbRef.child("fridge_food");
 const frigeMethods = {
     getProducts: () => fridgeRef.orderByChild("name").once("value").then((shot) => {
         let sortedList = [];
-        shot.forEach(child => { sortedList.push(Object.assign({}, { key: child.getKey() }, child.val())); });
+        shot.forEach(child => {
+            sortedList.push(Object.assign({}, { key: child.getKey() }, child.val()));
+        });
 
         return sortedList;
     }),
-    addProduct: (item) => {
-        const ref = dbRef.push();
-        return ref.set(item);
-    },
-    removeProduct: key => dbRef.child(`/fridge_food/${key}`),
+    addProduct: product => fridgeRef.push().set(product),
+    removeProduct: key => fridgeRef.child(key),
     getProduct: key => dbRef.child(`/fridge_food/${key}`).once("value"),
 };
 
