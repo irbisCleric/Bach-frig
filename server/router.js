@@ -1,16 +1,17 @@
 const KoaRouter = require("koa-route");
 const firebase = require("./firebase");
 
-const dbRef = firebase.database().ref("fridge_food");
+const dbRef = firebase.database().ref();
+const fridgeRef = dbRef.child("fridge_food");
 
 const frigeMethods = {
-    getProducts: () => dbRef.once("value"),
+    getProducts: () => fridgeRef.orderByChild("name").once("value"),
     addProduct: (item) => {
         const ref = dbRef.push();
         return ref.set(item);
     },
-    removeProduct: key => firebase.database().ref(`/fridge_food/${key}`),
-    getProduct: key => firebase.database().ref(`/fridge_food/${key}`).once("value"),
+    removeProduct: key => dbRef.child(`/fridge_food/${key}`),
+    getProduct: key => dbRef.child(`/fridge_food/${key}`).once("value"),
 };
 
 module.exports = (backendApp) => {
@@ -22,11 +23,10 @@ module.exports = (backendApp) => {
     /**
      * Get full products list
      */
-    backendApp.use(KoaRouter.get("/products", (ctx) => {
-        const reqContext = ctx;
-        return frigeMethods.getProducts()
-            .then(snapshot => (reqContext.body = snapshot.val()));
-    }));
+    backendApp.use(
+        KoaRouter
+            .get("/products", ctx => frigeMethods.getProducts().then(list => (ctx.body = list.val())))
+    );
 
     /**
      * Get single product item
