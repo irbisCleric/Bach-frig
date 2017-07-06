@@ -1,14 +1,38 @@
 const Koa = require("koa"),
     KoaCompress = require("koa-compress"),
     cors = require("kcors"),
-    logger = require("koa-logger"),
     bodyParser = require("koa-body-parser"),
     backendApp = new Koa(),
+    convert = require("koa-convert"), // Convert koa legacy middleware (https://github.com/koajs/koa/issues/533)
+    asyncM = require("asyncawait/async"),
+    awaitM = require("asyncawait/await"),
+    colors = require("colors"),
     routings = require("./router");
 
-backendApp.use(bodyParser());
-backendApp.use(cors());
-backendApp.use(logger());
+colors.setTheme({
+    silly: "rainbow",
+    input: "grey",
+    verbose: "cyan",
+    prompt: "grey",
+    info: "green",
+    data: "grey",
+    help: "cyan",
+    warn: "yellow",
+    debug: "blue",
+    error: "red",
+});
+
+backendApp.use(convert(bodyParser()));
+backendApp.use(convert(cors()));
+
+// logger
+backendApp.use(asyncM((ctx, next) => {
+    const start = new Date();
+    awaitM(next());
+    const ms = new Date() - start;
+    console.log(`${ ctx.method } ${ ctx.url } - ${ ms } ms`.info);
+}));
+
 backendApp.use(KoaCompress());
 
 routings(backendApp);
