@@ -1,12 +1,10 @@
-const Koa = require("koa");
-const KoaCompress = require("koa-compress");
-const cors = require("kcors");
-const logger = require("koa-logger");
-const bodyParser = require("koa-body-parser");
-
-const backendApp = new Koa();
-
-const routings = require("./router");
+const Koa = require("koa"),
+    KoaCompress = require("koa-compress"),
+    cors = require("kcors"),
+    logger = require("koa-logger"),
+    bodyParser = require("koa-body-parser"),
+    backendApp = new Koa(),
+    routings = require("./router");
 
 backendApp.use(bodyParser());
 backendApp.use(cors());
@@ -18,4 +16,4 @@ routings(backendApp);
 const SERVER_PORT = process.env.PORT || 8181;
 backendApp.listen(SERVER_PORT);
 
-console.log(`Server is running! Listening on port :${SERVER_PORT}`);
+console.log(`Server is running! Listening on port :${ SERVER_PORT }`);
