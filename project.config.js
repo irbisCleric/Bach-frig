@@ -7,7 +7,7 @@ const config = {
     // Project Structure
     // ----------------------------------
     path_base  :  path.resolve(__dirname),
-    dir_client :  "src",
+    dir_client :  "client",
     dir_dist   :  "dist",
     dir_server :  "server",
 
@@ -17,7 +17,7 @@ const config = {
     compiler_babel : {
         cacheDirectory : true,
         plugins        : ["transform-runtime"],
-        presets        : ["es2015", "react", "stage-0"]
+        presets        : ["es2015", "react", "stage-0", "stage-1"]
     },
     compiler_devtool         : "source-map",
     compiler_hash_type       :  "hash",

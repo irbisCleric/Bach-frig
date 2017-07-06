@@ -107,8 +107,10 @@ webpackConfig.module.rules.push({
             loader: "postcss-loader",
             options: {
                 plugins: () => [
+                    require("precss"),
                     rucksack({
                         autoprefixer: true,
+                        fallbacks: true,
                     }),
                 ],
             },
@@ -119,7 +121,6 @@ webpackConfig.module.rules.push({
 // ------------------------------------
 // Plugins
 // ------------------------------------
-// TODO: Add HtmlWebpackPlugin
 webpackConfig.plugins = [
     new webpack.DefinePlugin({
         "process.env": { NODE_ENV: JSON.stringify(process.env.NODE_ENV || "development") },

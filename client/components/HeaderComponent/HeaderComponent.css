@@ -1,0 +1,10 @@
+nav.header {
+  /* for redefine Material UI element style props http://www.material-ui.com/#/customization/styles */
+  .active button {
+    background: steelblue !important;
+  }
+
+  .active span {
+    color: #fff !important;
+  }
+}
