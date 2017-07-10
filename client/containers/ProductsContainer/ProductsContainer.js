@@ -1,12 +1,21 @@
 import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from "material-ui/Table";
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+} from "material-ui/Table";
 import CircularProgress from "material-ui/CircularProgress";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import RaisedButton from "material-ui/RaisedButton";
 import ActionDelete from "material-ui/svg-icons/action/delete";
+import { Link } from "react-router-dom";
 
+import { APP_URLS } from "../../constants/app.constants";
 import { getProducts, deleteProduct } from "../../actions/products.actions";
 import style from "./ProductsContainer.css";
 
@@ -34,20 +43,32 @@ class ProductsContainer extends Component {
         let tBody;
 
         if (productsItems.length) {
-            tBody = productsItems.map((food, index) => (
-              <TableRow key={food.id}>
-                <TableRowColumn>{index + 1}</TableRowColumn>
-                <TableRowColumn>{food.name}</TableRowColumn>
-                <TableRowColumn>{food.amount}</TableRowColumn>
-                <TableRowColumn>
-                  <RaisedButton
-                    data-remove={food.key}
-                    icon={<ActionDelete />}
-                    onTouchTap={this.handleRemove}
-                  />
-                </TableRowColumn>
-              </TableRow>),
-            );
+            tBody = productsItems.map((food, index) => {
+                const foodId = +index + 1;
+                const routeProps = {
+                    pathname: `${APP_URLS.PRODUCTS}/${foodId}`,
+                    state: { productKey: food.key },
+                };
+
+                return (
+                  <TableRow key={food.id}>
+                    <TableRowColumn>{foodId}</TableRowColumn>
+                    <TableRowColumn>
+                      <Link to={routeProps}>
+                        {food.name}
+                      </Link>
+                    </TableRowColumn>
+                    <TableRowColumn>{food.amount}</TableRowColumn>
+                    <TableRowColumn>
+                      <RaisedButton
+                        data-remove={food.key}
+                        icon={<ActionDelete />}
+                        onTouchTap={this.handleRemove}
+                      />
+                    </TableRowColumn>
+                  </TableRow>
+                );
+            });
         } else {
             tBody = (
               <TableRow>

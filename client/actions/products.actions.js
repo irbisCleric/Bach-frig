@@ -37,6 +37,15 @@ export const getProducts = () => (dispatch) => {
         .catch(errorLogger);
 };
 
+export const getProduct = snapshotKey => (dispatch) => {
+    apiFactory.get(ep.products.getProduct(snapshotKey))
+        .then((response) => {
+            dispatch(apiActions.success(constants.GET_PRODUCT, response));
+        })
+        .catch(errorLogger);
+};
+
+
 export const setProduct = item => (dispatch) => {
     dispatch({
         type: constants.LOAD_STATUS_PRODUCTS,

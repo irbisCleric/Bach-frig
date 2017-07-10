@@ -4,8 +4,8 @@ import { Provider } from "react-redux";
 
 import CoreLayout from "../layouts/CoreLayout";
 import AddProductContainer from "../containers/AddProductContainer";
-import ProductsContainer from "../containers/ProductsContainer";
 import DishesRouter from "./DishesRouter";
+import ProductsRouter from "./ProductsRouter";
 import { APP_URLS } from "../constants/app.constants";
 
 // TODO: Should be splitted on routings and AppContainer
@@ -43,7 +43,7 @@ class AppContainer extends Component {
                         <Redirect exact from={APP_URLS.ROOT} to={APP_URLS.DASHBOARD} />
                         <Route path={APP_URLS.DASHBOARD} component={Dashboard} />
                         <Route path={APP_URLS.ADD_PRODUCT} component={AddProductContainer} />
-                        <Route path={APP_URLS.PRODUCTS} component={ProductsContainer} />
+                        <Route path={APP_URLS.PRODUCTS} component={ProductsRouter} />
                         <Route path={APP_URLS.DISHES} component={DishesRouter} />
                         <Route component={NotFound} />
                     </Switch>

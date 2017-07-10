@@ -2,6 +2,7 @@ import constants from "./../constants/action.types";
 
 const DEFAULT_STATE = {
     productsItems: [],
+    product: [],
     isLoading: false,
 };
 
@@ -32,6 +33,17 @@ const loaderStatus = (state, action) => ({
     isLoading: action.payload.isLoading,
 });
 
+const getProductReducer = (state, action) => {
+    const res = [];
+    const { product } = action.payload;
+    res.push(product);
+
+    return {
+        ...state,
+        product: res,
+    };
+};
+
 const removeItemReducer = state => ({
     ...state,
 });
@@ -40,6 +52,8 @@ export default (state = DEFAULT_STATE, action) => {
     switch (action.type) {
     case constants.FETCH_PRODUCTS:
         return productsItemsReducer(state, action);
+    case constants.GET_PRODUCT:
+        return getProductReducer(state, action);
     case constants.LOAD_STATUS_PRODUCTS:
         return loaderStatus(state, action);
     case constants.DELETE_PRODUCT:

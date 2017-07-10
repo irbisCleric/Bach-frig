@@ -1,7 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
 
+/* apply a natural box layout model to all elements, but allowing components to change */
 html {
-    box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
 html,
@@ -11,13 +16,6 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
-}
-
-.container {
-    width: 55%;
-    min-height: 500px;
-
-    box-shadow: rgba(0, 0, 0, .12) 0 1px 6px, rgba(0, 0, 0, .12) 0 1px 4px;
 }
 
 .MainContainer {
@@ -36,4 +34,19 @@ h1 {
 *:before,
 *:after {
     box-sizing: inherit;
+}
+
+.container {
+    width: 75%;
+    margin: 0 auto;
+    min-height: 500px;
+
+    box-shadow: rgba(0, 0, 0, .12) 0 1px 6px, rgba(0, 0, 0, .12) 0 1px 4px;
+}
+
+@media only screen  and (min-width : 1400px) {
+    .container {
+        width: 30%;
+        margin: 0;
+    }
 }

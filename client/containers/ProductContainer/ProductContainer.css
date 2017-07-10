@@ -1,0 +1,9 @@
+.product_img {
+    padding: 0 1rem;
+}
+
+.product_img,
+.product_name {
+    display: inline-block;
+    vertical-align: top;
+}
