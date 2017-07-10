@@ -1,20 +1,24 @@
 const KoaRouter = require("koa-route"),
+    asyncM = require("asyncawait/async"),
+    awaitM = require("asyncawait/await"),
     firebase = require("./firebase"),
     dbRef = firebase.database().ref(),
     fridgeRef = dbRef.child("fridge_food");
 
 const frigeMethods = {
-    getProducts: () => fridgeRef.orderByChild("name").once("value").then(snapshot => {
-        const sortedList = [];
-        snapshot.forEach(child => {
+    getProducts: () => {
+        const allProducts = awaitM(fridgeRef.orderByChild("name").once("value")),
+            sortedList = [];
+
+        allProducts.forEach(child => {
             sortedList.push(Object.assign({}, { key: child.getKey() }, child.val()));
         });
 
         return sortedList;
-    }),
+    },
     addProduct: product => fridgeRef.push().set(product),
     removeProduct: key => fridgeRef.child(key),
-    getProduct: key => dbRef.child(`/fridge_food/${ key }`).once("value"),
+    getProduct: key => awaitM(dbRef.child(`/fridge_food/${ key }`).once("value")),
 };
 
 module.exports = backendApp => {
@@ -26,60 +30,52 @@ module.exports = backendApp => {
     /**
      * Get full products list
      */
-    backendApp.use(
-        KoaRouter
-            .get("/products", ctx => frigeMethods.getProducts().then(list => (ctx.body = list)))
-    );
+    backendApp.use(KoaRouter.get("/products", ctx => ctx.body = frigeMethods.getProducts()));
 
     /**
      * Get single product item
      */
-    backendApp.use(KoaRouter.get("/products/:id", (ctx, next) => {
-        const reqContext = ctx;
-        frigeMethods
-            .getProduct(next)
-            .then(snapshot => {
-                console.log(snapshot.val());
-            });
+    backendApp.use(KoaRouter.get("/products/:id", asyncM((ctx, next) => {
+        const productItem = frigeMethods.getProduct(next);
 
-        reqContext.res.statusCode = 200;
-        reqContext.body = {
+        ctx.res.statusCode = 200;
+        ctx.body = {
             msg: "Single item loaded successful!",
-            status: reqContext.res.statusCode,
+            status: ctx.res.statusCode,
+            product: Object.assign({}, productItem.val()),
         };
-        reqContext.type = "application/json; charset=utf-8";
-    }));
+        ctx.type = "application/json; charset=utf-8";
+    }
+    )));
 
     /**
      * Remove single product item
      */
     backendApp.use(KoaRouter.del("/products/:id", (ctx, next) => {
-        const reqContext = ctx;
         frigeMethods
             .removeProduct(next)
             .remove();
 
-        reqContext.res.statusCode = 200;
-        reqContext.body = {
+        ctx.res.statusCode = 200;
+        ctx.body = {
             msg: "Item removed successful!",
-            status: reqContext.res.statusCode,
+            status: ctx.res.statusCode,
         };
-        reqContext.type = "application/json; charset=utf-8";
+        ctx.type = "application/json; charset=utf-8";
     }));
 
     /**
      * Create new product item
      */
     backendApp.use(KoaRouter.post("/products", ctx => {
-        const reqContext = ctx;
         frigeMethods.addProduct(ctx.request.body);
 
-        reqContext.res.statusCode = 200;
-        reqContext.body = {
+        ctx.res.statusCode = 200;
+        ctx.body = {
             msg: "Successfully added",
-            status: reqContext.res.statusCode,
+            status: ctx.res.statusCode,
         };
-        reqContext.type = "application/json; charset=utf-8";
+        ctx.type = "application/json; charset=utf-8";
     }));
 
     backendApp.use(ctx => {
