@@ -4,6 +4,7 @@ const DEFAULT_STATE = {
     productsItems: [],
     product: [],
     isLoading: false,
+    productAdded: false,
 };
 
 const productsItemsReducer = (state, action) => {
@@ -28,9 +29,20 @@ const productsItemsReducer = (state, action) => {
     };
 };
 
-const loaderStatus = (state, action) => ({
+const loaderStatusReducer = (state, action) => ({
     ...state,
     isLoading: action.payload.isLoading,
+});
+
+/**
+ * Status flag for snackbar
+ * (show when product is added)
+ * @param {*} state
+ * @param {*} action
+ */
+const productAddedReducer = (state, action) => ({
+    ...state,
+    productAdded: action.payload.productAdded,
 });
 
 const getProductReducer = (state, action) => {
@@ -50,12 +62,14 @@ const removeItemReducer = state => ({
 
 export default (state = DEFAULT_STATE, action) => {
     switch (action.type) {
-    case constants.FETCH_PRODUCTS:
+    case constants.GET_PRODUCTS:
         return productsItemsReducer(state, action);
     case constants.GET_PRODUCT:
         return getProductReducer(state, action);
     case constants.LOAD_STATUS_PRODUCTS:
-        return loaderStatus(state, action);
+        return loaderStatusReducer(state, action);
+    case constants.ADDED_PRODUCT:
+        return productAddedReducer(state, action);
     case constants.DELETE_PRODUCT:
         return removeItemReducer(state);
     default:

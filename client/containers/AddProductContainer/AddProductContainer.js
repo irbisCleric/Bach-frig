@@ -7,6 +7,7 @@ import RaisedButton from "material-ui/RaisedButton";
 import FlatButton from "material-ui/FlatButton";
 import TextField from "material-ui/TextField";
 import Dialog from "material-ui/Dialog";
+import Snackbar from "material-ui/Snackbar";
 
 import { setProduct } from "../../actions/products.actions";
 import { APP_URLS } from "../../constants/app.constants";
@@ -64,6 +65,7 @@ class AddProductContainer extends Component {
         const errorText = {
             required: "This field is required",
         };
+        const { productAdded } = this.props;
 
         /** Buttons in sumbit popup */
         const ActionButtons = [
@@ -124,6 +126,11 @@ class AddProductContainer extends Component {
                 </Paper>
               </form>
               <ConfirmDialog />
+              <Snackbar
+                open={productAdded}
+                message="Product was added successfully"
+                autoHideDuration={2000}
+              />
             </div>
           </MuiThemeProvider>
         );
@@ -146,11 +153,12 @@ AddProductContainer.propTypes = {
         push: PropTypes.func.isRequired,
         replace: PropTypes.func.isRequired,
     }).isRequired,
+    productAdded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => {
-    const { productsItems, isLoading } = state.main;
-    return { productsItems, isLoading };
+    const { productsItems, productAdded } = state.main;
+    return { productsItems, productAdded };
 };
 
 const mapDispatchToProps = dispatch => ({

@@ -25,7 +25,7 @@ export const getProducts = () => (dispatch) => {
 
     apiFactory.get(ep.products.getProducts())
         .then((response) => {
-            dispatch(apiActions.success(constants.FETCH_PRODUCTS, response));
+            dispatch(apiActions.success(constants.GET_PRODUCTS, response));
 
             dispatch({
                 type: constants.LOAD_STATUS_PRODUCTS,
@@ -45,7 +45,6 @@ export const getProduct = snapshotKey => (dispatch) => {
         .catch(errorLogger);
 };
 
-
 export const setProduct = item => (dispatch) => {
     dispatch({
         type: constants.LOAD_STATUS_PRODUCTS,
@@ -57,11 +56,10 @@ export const setProduct = item => (dispatch) => {
     apiFactory.post(ep.products.setProduct(), item)
         .then((response) => {
             dispatch(apiActions.success(constants.SET_PRODUCT, response));
-
             dispatch({
-                type: constants.LOAD_STATUS_PRODUCTS,
+                type: constants.ADDED_PRODUCT,
                 payload: {
-                    isLoading: false,
+                    productAdded: true,
                 },
             });
         })
