@@ -14,6 +14,7 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import RaisedButton from "material-ui/RaisedButton";
 import ActionDelete from "material-ui/svg-icons/action/delete";
 import { Link } from "react-router-dom";
+import Snackbar from "material-ui/Snackbar";
 
 import { APP_URLS } from "../../constants/app.constants";
 import { getProducts, deleteProduct } from "../../actions/products.actions";
@@ -87,9 +88,12 @@ class ProductsContainer extends Component {
                 adj: false,
             };
 
+            const { productRemoved, msg } = this.props;
+
             return (
               <div className={style.ProductsContainer}>
                 <MuiThemeProvider>
+                  <div className="tableWrapper">
                   <Table selectable={tConf.rSel}>
                     <TableHeader displaySelectAll={tConf.dSelAll} adjustForCheckbox={tConf.adj}>
                       <TableRow>
@@ -103,6 +107,12 @@ class ProductsContainer extends Component {
                       { tBody }
                     </TableBody>
                   </Table>
+                  <Snackbar
+                    open={productRemoved}
+                    message={msg}
+                    autoHideDuration={2000}
+                  />
+                </div>
                 </MuiThemeProvider>
               </div>);
         }
@@ -129,11 +139,13 @@ ProductsContainer.propTypes = {
     isLoading: PropTypes.bool.isRequired,
     handleGetProducts: PropTypes.func.isRequired,
     handleRemoveProduct: PropTypes.func.isRequired,
+    productRemoved: PropTypes.bool.isRequired,
+    msg: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => {
-    const { productsItems, isLoading } = state.main;
-    return { productsItems, isLoading };
+    const { productsItems, isLoading, productRemoved, msg } = state.main;
+    return { productsItems, isLoading, productRemoved, msg };
 };
 
 const mapDispatchToProps = dispatch => ({

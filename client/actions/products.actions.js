@@ -54,7 +54,7 @@ export const setProduct = item => (dispatch) => {
                 payload: {
                     productAdded: true,
                 },
-                msg: response.msg || "Product was added successfully",
+                msg: response.msg || "",
             });
         })
         .catch(errorLogger);
@@ -65,6 +65,13 @@ export const deleteProduct = snapshotKey => (dispatch) => {
     apiFactory.delete(ep.products.deleteProduct(snapshotKey))
         .then((response) => {
             dispatch(apiActions.success(constants.DELETE_PRODUCT, response));
+            dispatch({
+                type: constants.DELETED_PRODUCT,
+                payload: {
+                    productRemoved: true,
+                },
+                msg: response.msg || "",
+            });
         })
         .catch(errorLogger);
 };

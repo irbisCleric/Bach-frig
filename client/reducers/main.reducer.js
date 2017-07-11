@@ -5,6 +5,7 @@ const DEFAULT_STATE = {
     product: [],
     isLoading: false,
     productAdded: false,
+    productRemoved: false,
     msg: "",
 };
 
@@ -58,8 +59,10 @@ const getProductReducer = (state, action) => {
     };
 };
 
-const removeItemReducer = state => ({
+const removeItemReducer = (state, action) => ({
     ...state,
+    productRemoved: action.payload.productRemoved,
+    msg: action.msg,
 });
 
 export default (state = DEFAULT_STATE, action) => {
@@ -72,8 +75,8 @@ export default (state = DEFAULT_STATE, action) => {
         return loaderStatusReducer(state, action);
     case constants.ADDED_PRODUCT:
         return productAddedReducer(state, action);
-    case constants.DELETE_PRODUCT:
-        return removeItemReducer(state);
+    case constants.DELETED_PRODUCT:
+        return removeItemReducer(state, action);
     default:
         return state;
     }
