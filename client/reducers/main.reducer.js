@@ -5,6 +5,7 @@ const DEFAULT_STATE = {
     product: [],
     isLoading: false,
     productAdded: false,
+    msg: "",
 };
 
 const productsItemsReducer = (state, action) => {
@@ -43,6 +44,7 @@ const loaderStatusReducer = (state, action) => ({
 const productAddedReducer = (state, action) => ({
     ...state,
     productAdded: action.payload.productAdded,
+    msg: action.msg,
 });
 
 const getProductReducer = (state, action) => {

@@ -65,7 +65,8 @@ class AddProductContainer extends Component {
         const errorText = {
             required: "This field is required",
         };
-        const { productAdded } = this.props;
+
+        const { productAdded, msg } = this.props;
 
         /** Buttons in sumbit popup */
         const ActionButtons = [
@@ -128,7 +129,7 @@ class AddProductContainer extends Component {
               <ConfirmDialog />
               <Snackbar
                 open={productAdded}
-                message="Product was added successfully"
+                message={msg}
                 autoHideDuration={2000}
               />
             </div>
@@ -154,11 +155,12 @@ AddProductContainer.propTypes = {
         replace: PropTypes.func.isRequired,
     }).isRequired,
     productAdded: PropTypes.bool.isRequired,
+    msg: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => {
-    const { productsItems, productAdded } = state.main;
-    return { productsItems, productAdded };
+    const { productsItems, productAdded, msg } = state.main;
+    return { productsItems, productAdded, msg };
 };
 
 const mapDispatchToProps = dispatch => ({

@@ -46,13 +46,6 @@ export const getProduct = snapshotKey => (dispatch) => {
 };
 
 export const setProduct = item => (dispatch) => {
-    dispatch({
-        type: constants.LOAD_STATUS_PRODUCTS,
-        payload: {
-            isLoading: true,
-        },
-    });
-
     apiFactory.post(ep.products.setProduct(), item)
         .then((response) => {
             dispatch(apiActions.success(constants.SET_PRODUCT, response));
@@ -61,6 +54,7 @@ export const setProduct = item => (dispatch) => {
                 payload: {
                     productAdded: true,
                 },
+                msg: response.msg || "Product was added successfully",
             });
         })
         .catch(errorLogger);
@@ -69,10 +63,8 @@ export const setProduct = item => (dispatch) => {
 
 export const deleteProduct = snapshotKey => (dispatch) => {
     apiFactory.delete(ep.products.deleteProduct(snapshotKey))
-        .then(() => {
-            dispatch({
-                type: constants.DELETE_PRODUCT,
-            });
+        .then((response) => {
+            dispatch(apiActions.success(constants.DELETE_PRODUCT, response));
         })
         .catch(errorLogger);
 };
