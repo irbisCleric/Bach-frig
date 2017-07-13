@@ -1,13 +1,11 @@
 const KoaRouter = require("koa-route"),
-    asyncM = require("asyncawait/async"),
-    awaitM = require("asyncawait/await"),
     firebase = require("./firebase"),
     dbRef = firebase.database().ref(),
     fridgeRef = dbRef.child("fridge_food");
 
 const frigeMethods = {
-    getProducts: () => {
-        const allProducts = awaitM(fridgeRef.orderByChild("name").once("value")),
+    getProducts: async () => {
+        const allProducts = await fridgeRef.orderByChild("name").once("value"),
             sortedList = [];
 
         allProducts.forEach(child => {
@@ -18,7 +16,7 @@ const frigeMethods = {
     },
     addProduct: product => fridgeRef.push().set(product),
     removeProduct: key => fridgeRef.child(key),
-    getProduct: key => awaitM(dbRef.child(`/fridge_food/${ key }`).once("value")),
+    getProduct: key => dbRef.child(`/fridge_food/${ key }`).once("value"),
 };
 
 module.exports = backendApp => {
@@ -30,13 +28,13 @@ module.exports = backendApp => {
     /**
      * Get full products list
      */
-    backendApp.use(KoaRouter.get("/products", ctx => ctx.body = frigeMethods.getProducts()));
+    backendApp.use(KoaRouter.get("/products", async ctx => ctx.body = await frigeMethods.getProducts()));
 
     /**
      * Get single product item
      */
-    backendApp.use(KoaRouter.get("/products/:id", asyncM((ctx, next) => {
-        const productItem = frigeMethods.getProduct(next);
+    backendApp.use(KoaRouter.get("/products/:id", async (ctx, next) => {
+        const productItem = await frigeMethods.getProduct(next);
 
         ctx.res.statusCode = 200;
         ctx.body = {
@@ -46,7 +44,7 @@ module.exports = backendApp => {
         };
         ctx.type = "application/json; charset=utf-8";
     }
-    )));
+    ));
 
     /**
      * Remove single product item
