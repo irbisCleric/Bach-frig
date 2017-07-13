@@ -19,10 +19,10 @@ const config = {
         plugins        : ["transform-runtime"],
         presets        : ["es2015", "react", "stage-0", "stage-1"]
     },
-    compiler_devtool         : "source-map",
-    compiler_hash_type       :  "hash",
-    compiler_public_path     :  "/",
-    compiler_stats           :  {
+    compiler_devtool         : "eval", //"source-map",
+    compiler_hash_type       : "hash",
+    compiler_public_path     : "/",
+    compiler_stats           : {
         chunks : false,
         chunkModules : false,
         colors : true

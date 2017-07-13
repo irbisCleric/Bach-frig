@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server -d --history-api-fallback --hot --inline --progress --colors --port 1815",
-    "build": "webpack --progress --colors --watch --config webpack.config.js",
+    "buildD": "webpack --progress --colors --watch --config webpack.config.js",
+    "build": "webpack -p --progress --colors --config webpack.config.js",
     "server": "node server/index.js"
   },
   "dependencies": {
