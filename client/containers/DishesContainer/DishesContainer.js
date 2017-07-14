@@ -1,12 +1,4 @@
-/* eslint prefer-template: "warn"*/
-/* eslint quotes: ["warn", "double"]*/
-/* eslint no-undef: "warn"*/
-/* eslint no-unused-vars: "warn"*/
-
-import React, {
-    Component,
-    // PropTypes,
-} from "react";
+import React, { Component } from "react";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import {
     Table,
@@ -16,30 +8,11 @@ import {
     TableRow,
     TableRowColumn,
 } from "material-ui/Table";
-import {
-//     Switcher,
-    Link,
-//     Route,
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-// import ProductContainer from "../../containers/ProductContainer";
 import { APP_URLS } from "../../constants/app.constants";
 
-require("./DishesContainer.css");
-
-// const Child = ({ match }) => (
-//     <div>
-//         <h3>ID: {match.params.id}</h3>
-//     </div>
-// );
-
-// Child.propTypes = {
-//     match: PropTypes.shape({
-//         params: PropTypes.shape({
-//             id: PropTypes.number,
-//         }),
-//     }).isRequired,
-// };
+import "./DishesContainer.css";
 
 class Dishes extends Component {
     componentWillUnmount() {
