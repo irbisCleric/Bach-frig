@@ -61,14 +61,15 @@ export const setProduct = item => (dispatch) => {
 };
 
 
-export const deleteProduct = snapshotKey => (dispatch) => {
-    apiFactory.delete(ep.products.deleteProduct(snapshotKey))
+export const deleteProduct = ({ key, id }) => (dispatch) => {
+    apiFactory.delete(ep.products.deleteProduct(key))
         .then((response) => {
             dispatch(apiActions.success(constants.DELETE_PRODUCT, response));
             dispatch({
                 type: constants.DELETED_PRODUCT,
                 payload: {
                     productRemoved: true,
+                    productId: id,
                 },
                 msg: response.msg || "",
             });

@@ -6,6 +6,7 @@ const DEFAULT_STATE = {
     isLoading: false,
     productAdded: false,
     productRemoved: false,
+    productId: null,
     msg: "",
 };
 
@@ -61,6 +62,7 @@ const getProductReducer = (state, action) => {
 
 const removeItemReducer = (state, action) => ({
     ...state,
+    productsItems: state.productsItems.filter(({ id }) => id !== action.payload.productId),
     productRemoved: action.payload.productRemoved,
     msg: action.msg,
 });

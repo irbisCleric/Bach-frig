@@ -34,8 +34,12 @@ class ProductsContainer extends Component {
     }
 
     handleRemove(e) {
-        const keyProp = e.currentTarget.getAttribute("data-remove");
-        this.props.handleRemoveProduct(keyProp);
+        const dataRequest = {
+            key: e.currentTarget.getAttribute("data-remove"),
+            id: e.currentTarget.getAttribute("data-removeId"),
+        };
+
+        this.props.handleRemoveProduct(dataRequest);
     }
 
     render() {
@@ -63,6 +67,7 @@ class ProductsContainer extends Component {
                     <TableRowColumn>
                       <RaisedButton
                         data-remove={food.key}
+                        data-removeId={food.id}
                         icon={<ActionDelete />}
                         onTouchTap={this.handleRemove}
                       />
