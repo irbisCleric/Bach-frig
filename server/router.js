@@ -3,34 +3,68 @@ const KoaRouter = require("koa-route"),
     dbRef = firebase.database().ref(),
     productsRef = dbRef.child("products");
 
-const frigeMethods = {
+const productMethods = {
     getProducts: async () => {
-        const allProducts = await productsRef.orderByChild("name").once("value"),
+        const products = await productsRef.orderByChild("name").once("value"),
             sortedList = [];
 
-        allProducts.forEach(child => {
+        products.forEach(child => {
             sortedList.push(Object.assign({}, { key: child.getKey() }, child.val()));
         });
 
         return sortedList;
     },
-    addProduct: product => productsRef.push().set(product),
-    removeProduct: key => productsRef.child(key),
+    setProduct: async product => {
+        const { exist/* , key */ } = await productMethods.checkProductKnown(product);
+        let msg = "";
+
+        if (exist) {
+            msg = "OMG! Product already exist";
+        } else {
+            msg = "Product successfully added";
+            productsRef.push(product);
+        }
+
+        return msg;
+    },
     getProduct: key => productsRef.child(`${ key }`).once("value"),
+    removeProduct: key => productsRef.child(key),
+    checkProductKnown: async product => {
+        const name = product.name.trim();
+        const products = (await productsRef.once("value")).val();
+        const knownProduct = {
+            exist: false,
+            key: "",
+        };
+
+        for (const key in products) {
+            if (knownProduct.exist) {
+                break;
+            }
+
+            if (products.hasOwnProperty(key)) {
+
+                if (products[key].name === name) {
+                    knownProduct.exist = true;
+                    knownProduct.key = key;
+                }
+            }
+        }
+
+        return knownProduct;
+    },
 };
 
 // TODO: Removed this method after stabilised DB structure
-/* dbRef.child("fridge_food").once("value", stamp => {
-    const struct = Object.keys(stamp.val());
-    console.log(struct);
+/* dbRef.child("products").once("value", stamp => {
+    // const struct = Object.keys(stamp.val());
+    const obj = stamp.val();
 
-    dbRef.child("fridge_food").set(null);
+    console.log(obj);
 
-    // for (let i = 0; i < 5; i++)
-    //     dbRef.child(struct[i]).remove();
+    // dbRef.child("fridge_food").set(null);
+    // for (let i = 0; i < 5; i++) dbRef.child(struct[i]).remove();
 }); */
-
-// dbRef.child("groups").child("-KpUQDkTa026IW5ELia4").remove();
 
 module.exports = backendApp => {
     // Middleware normally takes two parameters (ctx, next),
@@ -41,13 +75,13 @@ module.exports = backendApp => {
     /**
      * Get full products list
      */
-    backendApp.use(KoaRouter.get("/products", async ctx => ctx.body = await frigeMethods.getProducts()));
+    backendApp.use(KoaRouter.get("/products", async ctx => ctx.body = await productMethods.getProducts()));
 
     /**
      * Get single product item
      */
     backendApp.use(KoaRouter.get("/products/:id", async (ctx, next) => {
-        const productItem = await frigeMethods.getProduct(next);
+        const productItem = await productMethods.getProduct(next);
 
         ctx.res.statusCode = 200;
         ctx.body = {
@@ -63,7 +97,7 @@ module.exports = backendApp => {
      * Remove single product item
      */
     backendApp.use(KoaRouter.del("/products/:id", (ctx, next) => {
-        frigeMethods
+        productMethods
             .removeProduct(next)
             .remove();
 
@@ -78,12 +112,12 @@ module.exports = backendApp => {
     /**
      * Create new product item
      */
-    backendApp.use(KoaRouter.post("/products", ctx => {
-        frigeMethods.addProduct(ctx.request.body);
+    backendApp.use(KoaRouter.post("/products", async ctx => {
+        const msg = await productMethods.setProduct(ctx.request.body);
 
         ctx.res.statusCode = 200;
         ctx.body = {
-            msg: "Successfully added",
+            msg,
             status: ctx.res.statusCode,
         };
         ctx.type = "application/json; charset=utf-8";

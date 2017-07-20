@@ -16,7 +16,8 @@
      "no-var": "error",
      "no-console": "off",
      "no-debugger": "warn",
-     "import/no-commonjs": "off"
+     "import/no-commonjs": "off",
+     "curly": "off"
    },
    "env": {
      "node": true,
