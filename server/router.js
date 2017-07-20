@@ -1,11 +1,11 @@
 const KoaRouter = require("koa-route"),
     firebase = require("./firebase"),
     dbRef = firebase.database().ref(),
-    fridgeRef = dbRef.child("fridge_food");
+    productsRef = dbRef.child("products");
 
 const frigeMethods = {
     getProducts: async () => {
-        const allProducts = await fridgeRef.orderByChild("name").once("value"),
+        const allProducts = await productsRef.orderByChild("name").once("value"),
             sortedList = [];
 
         allProducts.forEach(child => {
@@ -14,10 +14,23 @@ const frigeMethods = {
 
         return sortedList;
     },
-    addProduct: product => fridgeRef.push().set(product),
-    removeProduct: key => fridgeRef.child(key),
-    getProduct: key => dbRef.child(`/fridge_food/${ key }`).once("value"),
+    addProduct: product => productsRef.push().set(product),
+    removeProduct: key => productsRef.child(key),
+    getProduct: key => productsRef.child(`${ key }`).once("value"),
 };
+
+// TODO: Removed this method after stabilised DB structure
+/* dbRef.child("fridge_food").once("value", stamp => {
+    const struct = Object.keys(stamp.val());
+    console.log(struct);
+
+    dbRef.child("fridge_food").set(null);
+
+    // for (let i = 0; i < 5; i++)
+    //     dbRef.child(struct[i]).remove();
+}); */
+
+// dbRef.child("groups").child("-KpUQDkTa026IW5ELia4").remove();
 
 module.exports = backendApp => {
     // Middleware normally takes two parameters (ctx, next),
