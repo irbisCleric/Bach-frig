@@ -39,6 +39,7 @@ jspm_packages
 # Build folders
 dist/
 build/
+server/dist
 
 # Yarn files
 yarn.lock

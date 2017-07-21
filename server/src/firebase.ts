@@ -1,6 +1,4 @@
-// import * as firebaseDom from 'firebase-nodejs';
-
-const firebase = require("firebase");
+import * as firebase from "firebase";
 
 const config = {
     apiKey: "AIzaSyA5_f4QPSvk8B2893CEbxvcszRroADH0bc",
@@ -12,4 +10,4 @@ const config = {
 
 firebase.initializeApp(config);
 
-module.exports = firebase;
+export default firebase;

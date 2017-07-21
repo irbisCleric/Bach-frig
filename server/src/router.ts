@@ -1,20 +1,37 @@
-const KoaRouter = require("koa-route"),
-    firebase = require("./firebase"),
-    dbRef = firebase.database().ref(),
+import * as routes from "koa-route";
+import * as koa from "koa";
+import firebase from "./firebase";
+
+const dbRef = firebase.database().ref(),
     productsRef = dbRef.child("products");
+
+type Product = {
+    name: string,
+    amount: string
+};
+
+/**
+ * DataSnapshot (Firebase v3)
+ * 
+ * @interface DataSnapshotExtended
+ * @extends {firebase.database.DataSnapshot}
+  */
+interface DataSnapshotExtended extends firebase.database.DataSnapshot {
+    getKey: () => string
+}
 
 const productMethods = {
     getProducts: async () => {
         const products = await productsRef.orderByChild("name").once("value"),
-            sortedList = [];
+            sortedList: Product[] = [];
 
-        products.forEach(child => {
+        products.forEach((child: DataSnapshotExtended) => {
             sortedList.push(Object.assign({}, { key: child.getKey() }, child.val()));
         });
 
         return sortedList;
     },
-    setProduct: async product => {
+    setProduct: async (product: Product) => {
         const { isNew/* , key */ } = await productMethods.checkProductKnown(product);
         let msg = "";
 
@@ -27,9 +44,9 @@ const productMethods = {
 
         return msg;
     },
-    getProduct: key => productsRef.child(`${ key }`).once("value"),
-    removeProduct: key => productsRef.child(key),
-    checkProductKnown: async product => {
+    getProduct: (key: string) => productsRef.child(`${ key }`).once("value"),
+    removeProduct: (key: string) => productsRef.child(key),
+    checkProductKnown: async (product: Product) => {
         const name = product.name.trim().toLowerCase();
         const products = (await productsRef.once("value")).val();
         const newProduct = {
@@ -55,21 +72,21 @@ const productMethods = {
     },
 };
 
-module.exports = backendApp => {
-    // Middleware normally takes two parameters (ctx, next),
-    // ctx is the context for one request,
-    // next is a function that is invoked to execute the downstream middleware.
-    // It returns a Promise with a then function for running code after completion.
+/**
+ * Routes
+ * 
+ * Middleware normally takes two parameters (ctx, next),
+ * ctx is the context for one request,
+ * next is a function that is invoked to execute the downstream middleware.
+ * It returns a Promise with a then function for running code after completion.
+ */
+export default (App: koa) => {
 
-    /**
-     * Get full products list
-     */
-    backendApp.use(KoaRouter.get("/products", async ctx => ctx.body = await productMethods.getProducts()));
+    // Get all products
+    App.use(routes.get("/products", async ctx => ctx.body = await productMethods.getProducts()));
 
-    /**
-     * Get single product item
-     */
-    backendApp.use(KoaRouter.get("/products/:id", async (ctx, next) => {
+    // Get single product
+    App.use(routes.get("/products/:id", async (ctx, next) => {
         const productItem = await productMethods.getProduct(next);
 
         ctx.res.statusCode = 200;
@@ -82,10 +99,8 @@ module.exports = backendApp => {
     }
     ));
 
-    /**
-     * Remove single product item
-     */
-    backendApp.use(KoaRouter.del("/products/:id", (ctx, next) => {
+    // Remove single product
+    App.use(routes.del("/products/:id", (ctx, next) => {
         productMethods
             .removeProduct(next)
             .remove();
@@ -98,10 +113,8 @@ module.exports = backendApp => {
         ctx.type = "application/json; charset=utf-8";
     }));
 
-    /**
-     * Create new product item
-     */
-    backendApp.use(KoaRouter.post("/products", async ctx => {
+    // Create new product
+    App.use(routes.post("/products", async ctx => {
         const msg = await productMethods.setProduct(ctx.request.body);
 
         ctx.res.statusCode = 200;
@@ -112,7 +125,7 @@ module.exports = backendApp => {
         ctx.type = "application/json; charset=utf-8";
     }));
 
-    backendApp.use(ctx => {
+    App.use(ctx => {
         const reqContext = ctx;
         reqContext.body = "Default route";
     });

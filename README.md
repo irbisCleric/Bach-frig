@@ -35,9 +35,9 @@ Client:
 npm run start
 ```
 
-Server:
+Server (build and run):
 ```
-npm run server (start api server side)
+npm run srv
 ```
 
 Open in browser http://localhost:1815/
@@ -60,7 +60,8 @@ yarn upgrade --latest
 
 #### Create build (production)
 ````
-npm run build
+npm run srv_build
+npm run cl_build_prod
 ````
 
 NOTE: Client structure was taken from [link](https://github.com/tj/frontend-boilerplate/).
