@@ -30,7 +30,7 @@ const productMethods = {
     getProduct: key => productsRef.child(`${ key }`).once("value"),
     removeProduct: key => productsRef.child(key),
     checkProductKnown: async product => {
-        const name = product.name.trim();
+        const name = product.name.trim().toLowerCase();
         const products = (await productsRef.once("value")).val();
         const newProduct = {
             isNew: false,
@@ -54,17 +54,6 @@ const productMethods = {
         return newProduct;
     },
 };
-
-// TODO: Removed this method after stabilised DB structure
-/* dbRef.child("products").once("value", stamp => {
-    // const struct = Object.keys(stamp.val());
-    const obj = stamp.val();
-
-    console.log(obj);
-
-    // dbRef.child("fridge_food").set(null);
-    // for (let i = 0; i < 5; i++) dbRef.child(struct[i]).remove();
-}); */
 
 module.exports = backendApp => {
     // Middleware normally takes two parameters (ctx, next),
