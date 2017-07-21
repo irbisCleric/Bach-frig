@@ -39,7 +39,7 @@ ProductContainer.propTypes = {
     product: PropTypes.arrayOf(
         PropTypes.shape({
             name: PropTypes.string,
-            amount: PropTypes.string,
+            amount: PropTypes.number,
         }),
     ).isRequired,
     match: PropTypes.shape({

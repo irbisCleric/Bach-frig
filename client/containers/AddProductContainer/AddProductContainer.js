@@ -12,7 +12,7 @@ import Snackbar from "material-ui/Snackbar";
 import { setProduct } from "../../actions/products.actions";
 import { APP_URLS } from "../../constants/app.constants";
 
-const EMPTY_ITEM = { name: "", amount: "" };
+const EMPTY_ITEM = { name: "", amount: 0 };
 
 class AddProductContainer extends Component {
     constructor() {
@@ -29,7 +29,10 @@ class AddProductContainer extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        this.props.handleSetProduct(this.state.item);
+        this.props.handleSetProduct({
+            ...this.state.item,
+            amount: +this.state.item.amount,
+        });
         this.setState({ item: { ...EMPTY_ITEM } });
         this.handleClose();
     }

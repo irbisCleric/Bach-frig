@@ -134,10 +134,7 @@ ProductsContainer.propTypes = {
     productsItems: PropTypes.arrayOf(
         PropTypes.shape({
             title: PropTypes.string,
-            amount: PropTypes.oneOfType([
-                PropTypes.string,
-                PropTypes.number,
-            ]),
+            amount: PropTypes.number,
             name: PropTypes.string,
         }),
     ).isRequired,

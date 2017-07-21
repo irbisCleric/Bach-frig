@@ -7,7 +7,7 @@ const dbRef = firebase.database().ref(),
 
 type Product = {
     name: string,
-    amount: string
+    amount: number
 };
 
 /**
@@ -36,7 +36,7 @@ const productMethods = {
         let msg = "";
 
         if (isNew) {
-            msg = "OMG! Product already isNew";
+            msg = "OMG! Product already exist";
         } else {
             msg = "Product successfully added";
             productsRef.push(product);
@@ -65,12 +65,14 @@ const productMethods = {
                     newProduct.isNew = true;
                     newProduct.key = key;
                 }
+
             }
         }
 
         return newProduct;
     },
 };
+
 
 /**
  * Routes
@@ -87,7 +89,7 @@ export default (App: koa) => {
 
     // Get single product
     App.use(routes.get("/products/:id", async (ctx, next) => {
-        const productItem = await productMethods.getProduct(next);
+        const productItem: DataSnapshotExtended = await productMethods.getProduct(next);
 
         ctx.res.statusCode = 200;
         ctx.body = {
