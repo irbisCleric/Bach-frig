@@ -15,11 +15,11 @@ const productMethods = {
         return sortedList;
     },
     setProduct: async product => {
-        const { exist/* , key */ } = await productMethods.checkProductKnown(product);
+        const { isNew/* , key */ } = await productMethods.checkProductKnown(product);
         let msg = "";
 
-        if (exist) {
-            msg = "OMG! Product already exist";
+        if (isNew) {
+            msg = "OMG! Product already isNew";
         } else {
             msg = "Product successfully added";
             productsRef.push(product);
@@ -32,26 +32,26 @@ const productMethods = {
     checkProductKnown: async product => {
         const name = product.name.trim();
         const products = (await productsRef.once("value")).val();
-        const knownProduct = {
-            exist: false,
+        const newProduct = {
+            isNew: false,
             key: "",
         };
 
         for (const key in products) {
-            if (knownProduct.exist) {
+            if (newProduct.isNew) {
                 break;
             }
 
             if (products.hasOwnProperty(key)) {
 
                 if (products[key].name === name) {
-                    knownProduct.exist = true;
-                    knownProduct.key = key;
+                    newProduct.isNew = true;
+                    newProduct.key = key;
                 }
             }
         }
 
-        return knownProduct;
+        return newProduct;
     },
 };
 
